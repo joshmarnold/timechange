@@ -62,27 +62,36 @@ def simple_fourier(time_series, chunk_size=64, fft_size=128):
     """
     #Store the number of time series streams
     num_time_series = time_series.shape[0]
+    
     # Pad the data to chunk size
     pad_length = chunk_size - (time_series.shape[1] % chunk_size)
     time_series = np.pad(time_series, ((0, 0), (0, pad_length)), 'constant', constant_values=0)
+    
     # Reshape the data to chunks of suitable size
     time_series = time_series.reshape(int(np.product(time_series.shape) / chunk_size), chunk_size)
+    
     # Perform FFT on the resulting data
     # Store in the time_series variable since that data is no longer needed
     # Normalize the real and complex features
     time_series = np.abs(np.fft.rfft(time_series, fft_size))
+    
     # Store the chunked shape
     chunked_shape = time_series.shape
+    
     # Reshape it back to num_waves, * for normalization
     time_series = time_series.reshape((num_time_series, np.product(time_series.shape) // num_time_series))
+    
     #Normalize against maximum value per row to get all values between 0 and 1
     #Extract max values and replace 0s to avoid divide by 0 issue
     max_values = np.max(time_series, axis=1)
     np.place(max_values, max_values == 0, 1)
+    
     #Normalize the time series data by row
     time_series = (time_series.T / max_values).T
+    
     #Reshape the time series back to its chunked shape
     time_series = time_series.reshape(chunked_shape)
+    
     #TODO: configure whether shuffled or stacked
     #Shape of this array is W, H, 3
     return np.stack((time_series, time_series, time_series), axis=2)
@@ -94,13 +103,17 @@ def nothing(time_series):
     """
     #Bring all values up to positive
     time_series -= np.min(time_series, axis=1).reshape(time_series.shape[0], 1)
+    
     #Normalize all rows per row
     #Get normalization values
     max_values = np.max(time_series, axis=1).reshape(time_series.shape[0], 1)
+    
     #Fix divby0 errors
     max_values[max_values == 0] = 1
+    
     #Return the array normalized
     return np.stack([time_series / max_values] * 3, axis=2)
+
 def spectrogram(time_series):
     """Performs a spectrogram
     Parameters:
@@ -108,5 +121,6 @@ def spectrogram(time_series):
     """
     # Generate the spectrogram
     f,t,Sxx = signal.spectrogram(time_series.flatten())
+
     # Return the data
     return np.stack([Sxx] * 3, axis=2)

@@ -26,18 +26,22 @@ class CheckBoxSet(Frame):
             checkbox.pack()
             self.items[pick] = checkbox_var
             self.boxes[pick] = checkbox
+
     def update_choices(self, picks):
         """Changes the choices for the boxes
         Parameters
             picks -- List of strings representing the choices"""
+   
         #Delete existing checkboxes
         for box in self.boxes.values():
             box.pack_forget()
             box.destroy()
+   
         #Clear internal state
         self.vars=[]
         self.boxes = {}
         self.items = {}
+   
         #Set checkboxes
         for pick in picks:
             checkbox_var = IntVar()
@@ -54,8 +58,10 @@ class WelcomeScreen(Frame):
             self.parent.columns = self.parent.tc.get_csv_columns() 
             projectDir = os.path.join(os.path.expanduser('~'), 'timechange', 'default')
             self.parent.loadProject(projectDir)
+   
             #Start event loop
             self.parent.handle_queue()
+   
         except Exception as e:
             messagebox.showerror("Project Loading Error", str(e)) # Show error message
 
@@ -89,9 +95,11 @@ class LoadFilesScreen(Frame):
             	label = "unlabeled"
             fullpath = self.IMPORTFILES.item(item)["values"][1]
             self.parent.tc.add_training_file(label, fullpath)
+   
         self.parent.columns = self.parent.tc.get_csv_columns()
         self.parent.TransformDataScreen.refresh()
         messagebox.showinfo("Success", "Successfully added files")
+
     def __init__(self, parent):
         Frame.__init__(self, parent)
         self.parent = parent
@@ -141,6 +149,7 @@ class PickHeaders(Frame):
             if state.get() == 1:
                 columns.append(column_name)
         self.parent.tc.set_columns(columns)
+ 
         #Set transform parameters
         try:
             self.parent.tc.set_transform_parameters(method = self.method.get(),
@@ -149,15 +158,18 @@ class PickHeaders(Frame):
         except Exception as exc:
             messagebox.showerror("Error", "Invalid transformation parameters")
             return
+ 
         #Initialize training
         self.parent.tc.convert_all_csv()
         self.parent.notebook.pack_forget()
+ 
         #Fix: some systems don't have wait cursor
         try:
             self.parent.config(cursor="wait")
         except:
             pass
         self.parent.notebook.pack()
+
     def refresh(self):
         self.column_boxes.update_choices(self.parent.tc.get_csv_columns())
         #Set up the boxes
@@ -166,39 +178,50 @@ class PickHeaders(Frame):
             for column in self.column_boxes.items:
                 if column not in transform_defaults["columns"]:
                     self.column_boxes.items[column].set(0)
+
     def __init__(self, parent):
         Frame.__init__(self, parent)
         self.parent = parent
+
         #Instructions to user
         instruction_label = Label(self)
         instruction_label["text"] =  "                                      Instructions\n" \
                             "\n" \
                             "Set parameters for the data transformation here.\n" \
                             "Press \"Transform Data\" to start the data transformation"
+
         #Label for column list
         column_label = Label(self)
         column_label["text"] = "Columns to include"
+
         #List of columns
         self.column_boxes = CheckBoxSet(self, self.parent.columns)
         self.column_boxes.configure(height=20)
         scrollbar = Scrollbar(self.column_boxes)
         scrollbar.pack(side=RIGHT, fill=Y)
+
         #Create configuration for fft parameters
         #Label for method input
         method_label = Label(self, text="Method : ")
+
         #Types of transforms that can be performed
         methods = ["fft", "spectrogram", "nothing"]
+
         #Get the default parameters
         transform_defaults = self.parent.tc.get_transform_parameters()
+
         #Used to store the chosen method
         self.method = StringVar(self)
+
         #Used to read in the type of transform to perform
         self.method_entry = OptionMenu(self, self.method, transform_defaults["method"], *methods)
+
         #Set up the methods
         if transform_defaults["columns"] != "":
             for column in self.column_boxes.items:
                 if column not in transform_defaults["columns"]:
                     self.column_boxes.items[column].set(0)
+
         #Read in chunk size and fft size
         chunksize_label = Label(self, text="Chunk Size", )
         self.chunksize_entry = Entry(self, width=5)
@@ -206,10 +229,12 @@ class PickHeaders(Frame):
         fftsize_label = Label(self, text="FFT Size")
         self.fftsize_entry = Entry(self, width=5)
         self.fftsize_entry.insert(0, transform_defaults["fft_size"])
+
         #Used to initiate transformation
         self.transform_button = Button(self)
         self.transform_button["text"] = "Transform Data"
         self.transform_button["command"] = self.transform_data
+
         #Pack elements
         instruction_label.grid(row=0,column=0)
         column_label.grid(row=1, column=0)
@@ -228,15 +253,19 @@ class FFTPreviewScreen(Frame):
         self.parent = parent
         self.page_label = Label(self)
         self.page_label["text"] = "FFT Previews go here. Work in Progress..."
+
 class ConfigureScreen(Frame):
     def save(self):
         # Disable the save button 
         self.SAVEBUTTON.config(state=DISABLED)
+
         #Save the config file
         with open(self.parent.configFile, 'w') as fh:
             fh.write(self.CONFIG.get("1.0",END))
+
         #Generate model
         self.parent.tc.build_model()
+
         #Re-enable save button
         self.SAVEBUTTON.config(state=NORMAL)
 
@@ -249,13 +278,16 @@ class ConfigureScreen(Frame):
         self.parent = parent
         self.dirty = False
         self.parent.configFile = os.path.join(self.parent.projectPath, "parameters.conf")
+
         if not os.path.isfile(self.parent.configFile):
             open(self.parent.configFile, 'a').close()
+
         self.CONFIG = Text(self)
         fh = open(self.parent.configFile, 'r')
         cfg = fh.read()
         self.CONFIG.insert(END, cfg)
         fh.close()
+
         self.CONFIG.pack()
         self.SAVEBUTTON = Button(self)
         self.SAVEBUTTON["text"] = "Save"
@@ -277,14 +309,19 @@ class ResultsScreen(Frame):
         self.TRAINBUTTON["command"] = self.start_training
         self.TRAINBUTTON.pack()
         self.pack()
+
     #Button for training
     def start_training(self):
+
         #Disable the button
         self.TRAINBUTTON.config(state=DISABLED)
+
         #Perform training
         self.parent.tc.train()
+
         #Re-enable the button
         self.TRAINBUTTON.config(state=NORMAL)
+
         #Return the results
         #results_message = "Training Results\n"
         #results_message += "Training Accuracy: {}\n".format(training_results["acc"][-1])
@@ -326,6 +363,7 @@ class Application(Frame):
         self.notebook.add(self.ResultsScreen, text="Results")
         self.notebook.pack()
         self.TransformDataScreen.refresh()
+
     def handle_queue(self):
         #Check for events on the queue
         try:
@@ -333,25 +371,32 @@ class Application(Frame):
             if event["type"] == "success":
                 if event["job"] == "transform":
                     messagebox.showinfo("Success", "Data was successfully transformed.")
+
                 elif event["job"] == "build_model":
                     messagebox.showinfo("Success", "Model build was successful.")
+
                 elif event["job"] == "train":
                     #Create a results show
                     results_string = ""
                     for metric, result in event["message"].items():
                         results_string += "{}: {:.4f}\n".format(metric, result[-1])
                     self.ResultsScreen.LBL["text"] = results_string
+
                     #Success popup
                     messagebox.showinfo("Success", "Model training complete.")
+
             elif event["type"] == "error":
                 error_title = {"transform":"Data Transformaton Error",
                                "build_model": "Model Build Error",
                                "train": "Training Error"}[event["job"]]
+
                 messagebox.showerror(error_title, event["message"])
-            #Set the cursor back to normal after the thread has responded
+                #Set the cursor back to normal after the thread has responded
+      
         except:
             pass
         self.after(250, self.handle_queue)
+    
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.WelcomeScreen = WelcomeScreen(self)
