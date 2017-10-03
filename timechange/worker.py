@@ -16,6 +16,7 @@ from . import transform
 from . import model
 from model import *
 from . import train
+from train import *
 
 def convert_all_csv(project_path):
     """Iterates over the training files set and generates corresponding images
@@ -121,7 +122,6 @@ def worker_thread(project_path, input_queue, output_queue):
             #Attempt to generate the model
             try:
                 #Build the model
-                print('here we are')
                 model = build_model(project_path)
         
                 #Inform the main thread that model generated properly

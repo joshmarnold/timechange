@@ -1,6 +1,7 @@
 import os
 from os import path
 import numpy as np
+from configparser import ConfigParser
 #For creating images from numpy arrays
 from PIL import Image
 
@@ -13,8 +14,6 @@ def build_model(project_path):
     from keras.layers import Convolution2D, ZeroPadding2D, MaxPooling2D
     from keras.layers import Input, Dense, Flatten, Dropout
     from keras.optimizers import SGD
-
-    print('inside build model')
 
     #Set dimension ordering
     from keras.backend import common as K

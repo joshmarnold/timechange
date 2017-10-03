@@ -1,14 +1,17 @@
+import keras
+from keras.backend import common as K
+from keras.preprocessing.image import ImageDataGenerator
+from PIL import Image
+import os
+from os import path
 
 def train(project_path, model, output_queue):
     """Trains a neural net model on the project's dataset
     Parameters:
     project_path -- 
     """
-    #Load keras
-    from keras.preprocessing.image import ImageDataGenerator
-    
+
     #Set dimension ordering
-    from keras.backend import common as K
     K.set_image_dim_ordering('th')
     
     #Load the image size
@@ -38,7 +41,6 @@ def train(project_path, model, output_queue):
             class_mode=class_mode) #TODO: consider binary mode for systems with only 2 labels
     
     #Design a callback to store training progress
-    import keras
     class ProgressBarCallback(keras.callbacks.Callback):
         def on_train_begin(self, logs={}):
             return

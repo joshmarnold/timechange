@@ -258,7 +258,6 @@ class TimeChange:
         Preconditions
             A project_path/parameters.conf is a valid model parameter file
         """
-        print('in init')
         self.worker_queue.put({"command":"build_model"})
     
     def train(self):
