@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block nav %}
+
+<ul class="nav nav-tabs">
+  <li class="{{ 'active' if active_page == 'home' else '' }}"><a href="{{url_for('home')}}">Home</a></li>
+  <li class="{{ 'active' if active_page == 'loadFiles' else '' }}"><a href="{{url_for('loadFiles')}}">Load Files</a></li>
+  <li class="{{ 'active' if active_page == 'transformData' else '' }}"><a href="{{url_for('transformData')}}">Transform Data</a></li>
+  <li class="{{ 'active' if active_page == 'FFTPreview' else '' }}"><a href="{{url_for('FFTPreview')}}">FFT Preview</a></li>
+  <li class="{{ 'active' if active_page == 'configure' else '' }}"><a href="{{url_for('configure')}}">Configure</a></li>
+  <li class="{{ 'active' if active_page == 'results' else '' }}"><a href="{{url_for('results')}}">Results</a></li>
+</ul>
+
+{% endblock %}
