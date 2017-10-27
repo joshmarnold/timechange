@@ -17,8 +17,12 @@
         Step 5) Click "Add to Project" button to add these labeled files to the project<br>
       </div>
     </div>
-    <div style="width: 75%; text-align: left; margin: auto;">
-      <button type="button" class="btn btn-primary">Select Files</button>
+    <div style="width: 75%; text-align: left; margin: auto; margin-top: 20px;">
+      <form id="upload-form" action="{{ url_for('upload')}}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="input_files" accept="csv, xls, xlsx" multiple>
+        <input type="submit" value="send">
+      </form>
+      <!-- <button type="button" class="btn btn-primary">Select Files</button> -->
       <table class="table table-striped">
         <thead>
           <tr>
