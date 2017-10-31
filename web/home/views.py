@@ -1,8 +1,17 @@
+import sys
+import os
+import os.path as path
+from web import settings
 from web import app
-from flask import render_template, redirect, flash, url_for
+from flask import render_template, redirect, flash, url_for, request
+from werkzeug import secure_filename
 
+APP_ROOT = path.dirname(path.abspath(__file__))
 ALLOWED_EXTENSIONS = set(['csv', 'xls', 'xlsx'])
-UPLOAD_FOLDER = '/files'
+UPLOAD_FOLDER = path.join(APP_ROOT, 'csv/')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 
 # files to upload
 #uploaded_csvs = UploadSet('files2upload', csv)
@@ -43,27 +52,18 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    target = os.path.join(APP_ROOT, 'csv/')
+    target = path.join(APP_ROOT, UPLOAD_FOLDER)
     print(target)
 
     # if images folder does not exist
     if not os.path.isdir(target):
         os.mkdir(target)
 
-    # grab all the files
-    # the files are objects containing
-    # information on each object
-    # in this case, file can be used to access
-    # this information
-    for file in request.files.getlist("input_files"): #input_files from html form
-        print(file)
-        # returns the file name of object bring uploaded
-        filename = file.filename
-        #create target destination(join target path with file name being uploaded)
-        destination = "/".join([target, filename])
-        print(destination)
-        # save the file in the destination
-        file.save(destination)
+    for file in request.files.getlist("file"): #input_files from html form
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file.close()
+    return render_template('loadFiles.html')
 
 
 

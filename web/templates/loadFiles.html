@@ -7,7 +7,7 @@
 <!-- Begin Load Files tab -->
 <div class="container">
   <div id="loadFiles" class="tab-pane fade in active">
-    <h3 class="text-center">Instructions</h3>
+    <h3 class="center-align">Instructions</h3>
     <div style="margin-left: auto; text-align: center;">
       <div style="display: inline-block; text-align: left">
         Step 1) Click the "Select Files" button to select files from the filesystem<br>
@@ -18,10 +18,25 @@
       </div>
     </div>
     <div style="width: 75%; text-align: left; margin: auto; margin-top: 20px;">
-      <form id="upload-form" action="{{ url_for('upload')}}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="input_files" accept="csv, xls, xlsx" multiple>
-        <input type="submit" value="send">
+      <!-- <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Select Files</span>
+            <input type="file" name="file" accept=".csv" multiple />
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Upload one or more files" />
+          </div>
+        </div>
+      </form> -->
+
+
+      <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+          <input type="file" name="file" accept=".csv" multiple="" />
+          <input type="submit" value="Upload" />
       </form>
+
+
       <!-- <button type="button" class="btn btn-primary">Select Files</button> -->
       <table class="table table-striped">
         <thead>
