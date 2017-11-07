@@ -58,12 +58,21 @@ model_type = convolutional_basic
 #The number of convolutional blocks to use for the model
 num_blocks = 3
 
-#hello from refactored
 #The number of filters for these blocks (comma-separated list)
 #If the size of this list is less than num_blocks, the last value
 #will be used for the remaining values
 
 num_filters = 16,8,8
+
+[rnn_basic]
+#The number of rnn blocks to use for the model
+num_blocks = 3
+
+#The number of filters for these blocks (comma-separated list)
+#If the size of this list is less than num_blocks, the last value
+#will be used for the remaining values
+
+num_filters = 16, 8, 8
 
 #Learning rate for training
 learning_rate = 1e-2
@@ -168,7 +177,12 @@ class TimeChange:
         self.result_queue = Queue()
       
         # Start a worker thread, passing argument
-        self.worker = Thread(target=worker.worker_thread, name="worker", args=(self.project_path, self.worker_queue, self.result_queue), daemon=True)
+        self.worker = Thread(target=worker.worker_thread,
+                             name="worker",
+                             args=(self.project_path,
+                                   self.worker_queue,
+                                   self.result_queue),
+                             daemon=True)
         self.worker.start()
     
     def add_training_file(self, label, file_path):

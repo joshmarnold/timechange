@@ -2,13 +2,13 @@
 
 import os
 from tkinter import *
-import time
+
 from tkinter.ttk import *
 from tkinter import _setit
 from tkinter import messagebox
 from tkinter import filedialog
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-import timechange
+from timechange import *
 from threading import *
 
 
