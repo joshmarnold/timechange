@@ -1,3 +1,6 @@
+flask
+flask-uploads
+flask-script
 numpy
 scipy
 keras==1.2.2

@@ -7,33 +7,80 @@
 
   <!-- external stylesheet-->
   <link rel="stylesheet" type="text/css" href="static/styles.css">
-  <!-- bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <!-- bootstrap-select -->
-  <!-- used as dropdown menu in transfromData.html -->
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-  <!-- remove rounded edges -->
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
 
   <style>
-  .nav-tabs > li, .nav-pills > li {
-    float:none;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-    zoom:1; /* hasLayout ie7 trigger */
+  .carousel .carousel-item{
+    width:100%;
   }
-  .nav-tabs, .nav-pills {
-    text-align:center;
+
+  .tabs {
+    border: 1px solid #e1e1e1;
+    background: white;
   }
+
+  .tabs .indicator {
+    background-color: #b71c1c;
+  }
+
+  .tabs .tab a.active {
+    color: #1a237e;
+  }
+
+  .tabs .tab a:hover {
+    color: #1a237e;
+  }
+
+  .tabs .tab a {
+    color: #797979;
+  }
+
+  html {
+    box-sizing: border-box;
+    -ms-overflow-style: scrollbar;
+    .nightSmoothie {
+      background: #A2A2A4;
+      background-image: radial-gradient(rgba(255,255,255,0.50) 50%, rgba(0,0,0,0.50) 200%);
+      background-blend-mode: multiply;
+    }
+  }
+
+  @media (min-width: 576px) {
+    .container {
+      max-width: 540px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .container {
+      max-width: 960px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 1140px;
+    }
+  }
+
   </style>
 </head>
 <body>
   <div style="margin-top: 100px;" class="container"></div>
-  {% block content %}{% endblock %}
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
 </body>
 </html>
