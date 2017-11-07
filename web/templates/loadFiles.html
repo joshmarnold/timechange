@@ -1,0 +1,49 @@
+{% extends "nav.html" %}
+{% set active_page = "loadFiles" %}
+{% block content %}
+<!-- Import navbar from parent -->
+{% block nav %}{{ super() }}{% endblock %}
+
+<!-- Begin Load Files tab -->
+<div class="container">
+  <div id="loadFiles" class="tab-pane fade in active">
+    <h3 class="text-center">Instructions</h3>
+    <div style="margin-left: auto; text-align: center;">
+      <div style="display: inline-block; text-align: left">
+        Step 1) Click the "Select Files" button to select files from the filesystem<br>
+        Step 2) Type a label into the following text box<br>
+        Step 3) Click the files you want to apply this label to<br>
+        Step 4) Repeat steps 2 and 3 until all files are labeled<br>
+        Step 5) Click "Add to Project" button to add these labeled files to the project<br>
+      </div>
+    </div>
+    <div style="width: 75%; text-align: left; margin: auto;">
+      <button type="button" class="btn btn-primary">Select Files</button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Label</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>file name</td>
+            <td><input class="w3-check" placeholder="Insert label" type="text"></td>
+          </tr>
+          <tr>
+            <td>file name</td>
+            <td><input class="w3-check" placeholder="Insert label" type="text"></td>
+          </tr>
+          <tr>
+            <td>file name</td>
+            <td><input class="w3-check" placeholder="Insert label" type="text"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-primary">Add to Project</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
