@@ -7,7 +7,5 @@ Instructions:
 3. run `python manage.py runserver`     #starts a server
 
 ```
-Once you have run through the instructions, you should be able to pull up the
-app on in your browser via localhost. Terminal will output the url the app
-is running on.
+Pull up localhost in your browser
 ```
