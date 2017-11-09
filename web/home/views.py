@@ -7,20 +7,24 @@ from web import app
 from flask import render_template, redirect, flash, url_for, request
 from werkzeug import secure_filename
 
+
 APP_ROOT = path.dirname(path.abspath(__file__))
 ALLOWED_EXTENSIONS = set(['csv', 'xls', 'xlsx'])
 UPLOAD_FOLDER = path.join(APP_ROOT, 'csv/')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-
 # files to upload
 #uploaded_csvs = UploadSet('files2upload', csv)
 #configure_uploads(app, uploaded_images)
 
+
+
 @app.route('/')
 @app.route('/home')
 def home():
+
+    # Initialize function from __init__.py
     return render_template("home.html")
 
 @app.route('/loadFiles')
@@ -58,7 +62,6 @@ def upload():
     file_names = []
     target = path.join(APP_ROOT, UPLOAD_FOLDER)
 
-
     # delete current csv directory
     if os.path.isdir(target):
         shutil.rmtree(target)
@@ -66,7 +69,7 @@ def upload():
     # mk a new directory
     os.mkdir(target)
 
-    print("here")
+    #print("here")
     #input_files from html form and save locally
     for file in request.files.getlist("file"):
         # if an empty form, return
@@ -77,7 +80,7 @@ def upload():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         file.close()
 
-    print("Here")
+    #print("Here")
     return render_template('loadFiles.html', file_names=file_names)
 
 

@@ -133,12 +133,13 @@ $(document).ready(function(){
       </div>
 
 
+
       <!-- Table -->
       <div class="row">
 
         <!-- If there are files to render -->
         {% if file_names %}
-          here
+
           {% from "_table.html" import render_field %} <!-- import a macro to render table -->
           {{ render_field(file_names) }} <!-- call the macro to the render table -->
         <!-- Else, no files to render -->

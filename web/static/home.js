@@ -70,7 +70,7 @@ $(document).ready(function(){
         if(!lable_val){
           console.log("HEREEEEEE");
           Materialize.toast('Uh oh, you forgot to add a label', 4000);
-          return false;
+          return;
         }
         //alert(num_files+":"+Object.keys(data).length);
         if(num_files == Object.keys(data).length){
