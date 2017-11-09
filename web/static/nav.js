@@ -24,7 +24,7 @@ $(document).ready(function(){
         //window.location.href = "/configure";
         window.location.href = Flask.url_for("configure");
     });
-    
+
     $("#results").click(function(){
         //window.location.href = "/results";
         window.location.href = Flask.url_for("results");

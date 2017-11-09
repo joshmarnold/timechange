@@ -1,7 +1,9 @@
 $(document).ready(function(){
     var idx = 0;
     var data = {};
-    
+
+
+
     $("#checkall").click(function () {
         if ($("#mytable #checkall").is(':checked')) {
             $("#mytable input[type=checkbox]").each(function () {
@@ -47,7 +49,7 @@ $(document).ready(function(){
             var last = $(end).parents('tr').children('td').eq(1).text();
 
             //check the boxes between first and last
-            $('.checkthis').slice(Math.min(first, last), Math.max(first, last)-1).prop("checked", end.checked);  
+            $('.checkthis').slice(Math.min(first, last), Math.max(first, last)-1).prop("checked", end.checked);
         }
 
         end = this;
@@ -56,31 +58,34 @@ $(document).ready(function(){
     $("[data-toggle=tooltip]").tooltip();
 
     $(".mysubmit").click(function(){
-        var checked_box = $('#mytable').find('input:checked'); 
+        var checked_box = $('#mytable').find('input:checked');
         var num_files = checked_box.length;
 
         //Label
         var lable_val = $('.labelVal').val();
         var total_files = $("#mytable > tbody > tr").length;
 
+        console.log("WERE in");
+
         if(!lable_val){
-            alert("Please enter label");
-            return false;
+          console.log("HEREEEEEE");
+          Materialize.toast('Uh oh, you forgot to add a label', 4000);
+          return false;
         }
         //alert(num_files+":"+Object.keys(data).length);
         if(num_files == Object.keys(data).length){
-           alert('Please select at least one file');
+            Materialize.toast({{'Uh oh'}}, 4000, );
             return false;
         }
-  
+
         if(idx >= total_files){
-            alert("Already label all the files");
-            return false;
+            //alert("Already label all the files");
+            //return false;
         }
         //for loop each selected files
         $(checked_box).each(function(){
             var $td = $(this).parents('tr').children('td');
-            
+
             //File name
             var file_name = $td.eq(2).text();
 
@@ -96,7 +101,7 @@ $(document).ready(function(){
                     idx++;
                     $(this).attr("value", 1);
                     //$(this).attr("disabled", true);
-                }   
+                }
             }
 
             console.log( JSON.stringify(data) );
