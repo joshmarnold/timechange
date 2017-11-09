@@ -7,6 +7,19 @@ from web import app
 from flask import render_template, redirect, flash, url_for, request
 from werkzeug import secure_filename
 
+from collections import defaultdict
+from queue import Queue
+from threading import Thread
+import shutil
+from configparser import ConfigParser
+import numpy as np
+import pandas
+from PIL import Image
+import timechange
+from . import worker
+from . import train
+from . import model
+
 
 APP_ROOT = path.dirname(path.abspath(__file__))
 ALLOWED_EXTENSIONS = set(['csv', 'xls', 'xlsx'])
@@ -18,12 +31,9 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 #uploaded_csvs = UploadSet('files2upload', csv)
 #configure_uploads(app, uploaded_images)
 
-
-
 @app.route('/')
 @app.route('/home')
 def home():
-
     # Initialize function from __init__.py
     return render_template("home.html")
 
@@ -35,6 +45,7 @@ def loadFiles():
 
 @app.route('/transfromData')
 def transformData():
+    timechange.convert_all_csv
     return render_template("transformData.html")
 
 @app.route('/FFTPreview')

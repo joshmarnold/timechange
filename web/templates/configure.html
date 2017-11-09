@@ -7,37 +7,41 @@
 <!-- Begin Configure tab -->
 <div class="container" style="width: 75%;">
   <div id="configure" class="tab-pane fade in active">
-    <h3 class="text-center">Configure Classifier</h3>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Panel title</h3>
-      </div>
-      <div class="panel-body" style="text-align: left;">
-        <samp class="text-left">
-          #The [DEFAULT]<br>
-          #The type of neural net to generate<br>
-          #Settings for the chosen type will be stored under a<br>
-          #section of the same name<br>
-          model_type = convolutional_basic<br>
-          [DEFAULT]<br>
-          #The [DEFAULT]<br>
-          #The type of neural net to generate<br>
-          #Settings for the chosen type will be stored under a<br>
-          #section of the same name<br>
-          model_type = convolutional_basic<br>
-          <br>
-          [convolutional_basic]<br>
-          #The number of convolutional blocks to use for the model<br>
-          num_blocks = 4<br>
-          The number of filters for these blocks (comma-separated list)<br>
-          #If the size of this list is less than num_blocks, the last value<br>
-          #will be used for the remaining values<br><br>
+    <h3 class="center-align">Configure Classifier</h3>
 
-          num_filters = 16,8,8<br>
-        </samp>
+    <div class="container" style="width: 75%;">
+      <div class="row">
+        <div class="col s6">
+          <form action="#">
+            <h4>Model Type</h4>
+            <hr />
+            <p>
+              <input class="with-gap" name="config" type="radio" value="convolutional" id="convolutional"/>
+              <label for="convolutional">Convolutional</label>
+            </p>
+            <p>
+              <input class="with-gap" name="config" type="radio" value="RNN" id="RNN"/>
+              <label for="RNN">RNN</label>
+            </p>
+          </form>
+        </div>
+
+        <div class="col s6">
+          <form class="form-inline">
+            <label class="sr-only" for="inlineFormInput">Num Blocks</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="3">
+
+            <label class="sr-only" for="inlineFormInput">Number filters (Comma Separated)</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="16">
+          </form>
+        </div>
+
       </div>
     </div>
-    <button type="button" class="btn btn-primary btn-block">Save</button>
+    <div style="display:flex;justify-content:center;margin-top:2%;">
+      <button type="button" class="btn btn-primary btn-block " style="width: 20%;">Configure</button>
+    </div>
+
   </div>
 </div>
 

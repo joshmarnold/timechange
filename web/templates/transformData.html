@@ -5,14 +5,16 @@
 {% block nav %}{{ super() }}{% endblock %}
 
 <!-- Begin Transform Data tab -->
-<div id="transformData" class="tab-pane fade in active">
-  <div style="width: 60%; margin: auto">
-    <h3 class="text-center">Instructions</h3>
+<div class="container" style="width: 75%;">
+  <div id="transformData" class="tab-pane fade in active">
     <div>
-      <p class="text-center">
-        Set parameters for the data transformation here.<br>
-        Press "Transform Data" to start the data transformation.
-      </p>
+      <h3 class="center-align">Instructions</h3>
+      <div>
+        <p class="text-center">
+          Set parameters for the data transformation here.<br>
+          Press "Transform Data" to start the data transformation.
+        </p>
+      </div>
     </div>
   </div>
 
@@ -21,32 +23,30 @@
   <!-- row: columns to include -->
   <div class="container" style="width: 75%;">
     <div class="row">
-      <div class="col-sm-4">
-        <select class="selectpicker" multiple data-actions-box="true" multiple title="Select labels to include">
-          <option>label1</option>
-          <option>label2</option>
-          <option>label3</option>
-        </select>
-      </div>
-      <div class="col-sm-2">
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Select Method <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-          </ul>
-        </div>
+      <div class="col s6">
+        <form action="#">
+          <p>
+            <input class="with-gap" name="transform" type="radio" value="nothing" id="nothing"/>
+            <label for="nothing">Nothing</label>
+          </p>
+          <p>
+            <input class="with-gap" name="transform" type="radio" value="test2" id="test2"/>
+            <label for="test2">FFT</label>
+          </p>
+          <p>
+            <input class="with-gap" name="transform" type="radio" value="test3"  id="test3"/>
+            <label for="test3">Spectrogram</label>
+          </p>
+        </form>
       </div>
 
-      <div class="col-sm-6" style="display:flex;justify-content:flex-end;">
+      <div class="col s6">
         <form class="form-inline">
-          <label class="sr-only" for="inlineFormInput">Name</label>
-          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter FFT Size">
+          <label class="sr-only" for="inlineFormInput">Enter FFT Size</label>
+          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="128">
 
-          <label class="sr-only" for="inlineFormInput">Name</label>
-          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Chunk Size">
+          <label class="sr-only" for="inlineFormInput">Enter Chunk Size</label>
+          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="64">
         </form>
       </div>
 
@@ -56,6 +56,6 @@
     <button type="button" class="btn btn-primary btn-block " style="width: 20%;">Transform Data</button>
   </div>
 
-  </div
+</div>
 
   {% endblock %}
