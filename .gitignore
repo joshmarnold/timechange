@@ -1,7 +1,7 @@
 # Visual Studio 6 auto-generated workspace file (contains which files were open etc.)
 # Created by https://www.gitignore.io/api/visualstudio,python
 
-.DS_Store
+
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -63,6 +63,7 @@ local_settings.py
 # Flask stuff:
 instance/
 .webassets-cache
+__pychache__
 
 # Scrapy stuff:
 .scrapy
@@ -378,3 +379,6 @@ data/
 SAMPLE_DATA/
 #vim
 .*.s??
+
+# mac
+.DS_Store

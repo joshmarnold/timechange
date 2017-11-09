@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>TimeChange</title>
+  {{ JSGlue.include() }}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -10,12 +11,15 @@
 
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-
+<script type=text/javascript src="{{url_for('static', filename='jquery.js') }}"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script type=text/javascript src="{{url_for('static', filename='nav.js') }}"></script>
+<script type=text/javascript src="{{url_for('static', filename='home.js') }}"></script>
+{% block head %}{% endblock %}
 
   <style>
+
   .carousel .carousel-item{
     width:100%;
   }
@@ -74,7 +78,6 @@
       max-width: 1140px;
     }
   }
-
   </style>
 </head>
 <body>
