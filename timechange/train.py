@@ -35,7 +35,7 @@ def train(project_path, model, output_queue):
             ).flow_from_directory(
             path.join(project_path, 'images'), #Read training data from the project's images dir
             target_size=image_size, #Resize must be set or the generator will automatically choose dimensions
-            color_mode='rgb', #TODO: take another look at this
+            color_mode='grayscale', #TODO: take another look at this
             batch_size=64, #TODO: customize this
             shuffle=True, #Shuffle the data inputs. TODO: set a random seed
             class_mode=class_mode) #TODO: consider binary mode for systems with only 2 labels
