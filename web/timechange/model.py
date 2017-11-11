@@ -11,17 +11,20 @@ from . import rnn_model
 # from keras.optimizers import SGD
 # from keras.backend import common as K
 
-def build_model(project_path):
-    """Generates a compiled keras model for use in timechange training
+def build_model(project_path, config):
+    """
+    Generates a compiled keras model for use in timechange training
     Parameters:
-    project_path -- path to a timechange project"""
+    project_path -- path to a timechange project
+    config -- dict containing configuration setting (model_type, num_blocks, num_filters, learning_rate)
+    """
 
     # Extract configuration
     config = ConfigParser()
     config.read(path.join(project_path,'parameters.conf'))
 
     #Extract model type from configuration
-    model_type = config['DEFAULT'].get('model_type', 'convolutional_basic').strip('\"').strip('\'')
+    model_type = config['model_type']
 
     #Determine the model type
     if model_type == 'convolutional_basic':

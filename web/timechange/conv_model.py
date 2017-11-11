@@ -27,10 +27,10 @@ def conv_model(project_path, config):
 
     # Extract and set parameters
     # Load number of blocks, with a default of 3
-    num_blocks = int(config['convolutional_basic'].get('num_blocks', 3))
+    num_blocks = config['num_block']
 
     # Load a filter size list, with a default
-    num_filters = config['convolutional_basic'].get('num_filters', '8,8,8')
+    num_filters = config['num_filters']
 
     # Parse the filter list into useful values
     num_filters = [int(f) for f in num_filters.split(',')]
@@ -41,7 +41,7 @@ def conv_model(project_path, config):
         num_filters.extend(num_filters[-1] * (num_blocks - len(num_filters)))
 
     # Extract the learning rate
-    learning_rate = float(config['convolutional_basic'].get('learning_rate', 1e-2))
+    learning_rate = config['learning_rate']
 
     # Dynamically determine final layer's activation based
     # on the number of classes
