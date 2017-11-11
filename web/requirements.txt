@@ -8,3 +8,4 @@ pandas
 pillow
 h5py
 Flask-JSGlue
+tensorflow==3.5

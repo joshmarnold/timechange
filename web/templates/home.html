@@ -8,11 +8,11 @@
 {% block nav %}{{ super() }}{% endblock %}
 
 
-<script>
+<!-- <script>
 $(document).ready(function(){
-    $(".fade").hide(0).delay(200).fadeIn(3000)
+    $(".fade").hide(0).delay(2000).fadeIn(3000)
 });
-</script>
+</script> -->
 
 <!-- Begin Home tab -->
 <div id="home" class="tab-pane fade in">
@@ -24,6 +24,11 @@ $(document).ready(function(){
       To begin, click on the 'Load Files' tab to load and label your csv files!
     </p>
   </div>
+</div>
+
+<div style="display: flex; align-items: center; justify-content: center;">
+  <a id="hideInstrBtn" class="waves-effect waves-light btn" style="margin: 15px !important; margin-top: 20px !important;">Load project</a>
+  <a id="hideInstrBtn" class="waves-effect waves-light btn" style="margin: 15px !important; margin-top: 20px !important;">Create Project</a>
 </div>
 
 

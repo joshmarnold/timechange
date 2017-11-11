@@ -65,17 +65,15 @@ $(document).ready(function(){
         var lable_val = $('.labelVal').val();
         var total_files = $("#mytable > tbody > tr").length;
 
-        console.log("WERE in");
 
         if(!lable_val){
-          console.log("HEREEEEEE");
-          Materialize.toast('Uh oh, you forgot to add a label', 4000);
+          Materialize.toast('Uh oh, you forgot to add a label', 4000, 'yellow lighten-3');
           return;
         }
         //alert(num_files+":"+Object.keys(data).length);
         if(num_files == Object.keys(data).length){
-            Materialize.toast({{'Uh oh'}}, 4000, );
-            return false;
+            Materialize.toast('Uh oh', 4000);
+            return;
         }
 
         if(idx >= total_files){

@@ -1,3 +1,4 @@
+# web import
 import sys
 import os
 import shutil
@@ -13,28 +14,21 @@ ALLOWED_EXTENSIONS = set(['csv', 'xls', 'xlsx'])
 UPLOAD_FOLDER = path.join(APP_ROOT, 'csv/')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
-# files to upload
-#uploaded_csvs = UploadSet('files2upload', csv)
-#configure_uploads(app, uploaded_images)
-
-
-
 @app.route('/')
 @app.route('/home')
 def home():
-
     # Initialize function from __init__.py
     return render_template("home.html")
 
 @app.route('/loadFiles')
 def loadFiles():
     file_names = []
-    toast=False
-    return render_template("loadFiles.html", file_names=file_names, toast=toast)
+    flag = ""
+    return render_template("loadFiles.html", file_names=file_names, flag=flag)
 
-@app.route('/transfromData')
+@app.route('/transformData')
 def transformData():
+    print("heroer")
     return render_template("transformData.html")
 
 @app.route('/FFTPreview')
@@ -74,14 +68,14 @@ def upload():
     for file in request.files.getlist("file"):
         # if an empty form, return
         if file.filename == '':
-            return render_template('loadFiles.html', file_names=file_names, toast="Uh oh, you forgot to add files :)")
+            return render_template('loadFiles.html', file_names=file_names, message="Uh oh, you forgot to add files", flag="fail")
         file_names.append(secure_filename(file.filename))
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         file.close()
 
     #print("Here")
-    return render_template('loadFiles.html', file_names=file_names)
+    return render_template('loadFiles.html', file_names=file_names, message="Success!", flag="success")
 
 
 @app.route('/grabjson', methods=['POST'])

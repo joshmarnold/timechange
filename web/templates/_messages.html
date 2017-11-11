@@ -1,0 +1,36 @@
+{% macro render_messages(message, flag) %}
+
+<style>
+/* Toast Styling  */
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 10%;
+  color: black;
+  left:7%;
+}
+
+</style>
+
+{% if flag == "success" %}
+
+<script>
+    $(document).ready(function(){
+       Materialize.toast("{{message}}", 4000, 'green lighten-1');
+    });
+</script>
+{% else %}
+<style>
+.toast {
+  color: #000;
+}
+</style>
+<script>
+
+    $(document).ready(function(){
+       Materialize.toast("{{message}}", 4000, 'yellow lighten-3');
+    });
+</script>
+{% endif %}
+
+{% endmacro %}
