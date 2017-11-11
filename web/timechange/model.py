@@ -27,12 +27,13 @@ def build_model(project_path, config):
     model_type = config['model_type']
 
     #Determine the model type
-    if model_type == 'convolutional_basic':
+    if model_type == 'convolutional':
         model = conv_model(project_path, config)
-    elif model_type == 'rnn_basic':
+    elif model_type == 'rnn':
         model = rnn_model(project_path, config)
     else:
         raise Exception("Invalid neural net type")
 
     #Output the model
-    return model
+    model.save(path.join(project_path, "models", "latest.h5"))
+

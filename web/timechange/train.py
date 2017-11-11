@@ -1,15 +1,19 @@
 import keras
 from keras.backend import common as K
 from keras.preprocessing.image import ImageDataGenerator
+from keras.models import load_model
 from PIL import Image
 import os
 from os import path
 
-def train(project_path, model, output_queue):
+def train(project_path, output_queue):
     """Trains a neural net model on the project's dataset
     Parameters:
     project_path -- 
     """
+
+    # load the compiled model
+    model = load_model(path.join(project_path, "models", "latest.h5"))
 
     #Set dimension ordering
     K.set_image_dim_ordering('th')
@@ -53,6 +57,8 @@ def train(project_path, model, output_queue):
             return
         def on_batch_begin(self, batch, logs={}):
             return
+
+    model.save_weights(path.join(project_path, "models", "latest.h5"))
     
     #Train the model
     #TODO: k-fold validation
