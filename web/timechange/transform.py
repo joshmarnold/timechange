@@ -39,10 +39,8 @@ from PIL import Image
 import pandas
 #For performing transformations
 from . import transform
-from . import model
-from model import *
-from . import train
-from train import *
+from .model import *
+from .train import *
 import numpy as np
 from scipy import signal
 

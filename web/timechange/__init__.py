@@ -41,9 +41,9 @@ import numpy as np
 import pandas
 from PIL import Image
 import timechange
-from . import worker
-from . import train
-from . import model
+from .worker import *
+from .train import *
+from .model import *
 
 #Keras includes
 

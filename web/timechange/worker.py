@@ -12,9 +12,9 @@ from PIL import Image
 #For reading csv files
 import pandas
 #For performing transformations
-from . import transform
-from . import model
-from . import train
+from .transform import *
+from .model import *
+from .train import *
 
 def convert_all_csv(project_path):
     """Iterates over the training files set and generates corresponding images
