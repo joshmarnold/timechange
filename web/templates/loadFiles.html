@@ -101,9 +101,45 @@ $(document).ready(function(){
   $('form input').change(function () {
     $('form p').text(this.files.length + " file(s) selected");
   });
-});
-</script>
 
+  $('#getlabel').click(function() {
+    if($(this).val()==1){
+        $(this).parents('tr').children('td').eq(3).remove();
+        $(this).removeAttr("value");
+        //remove from json obj
+        var key_temp = $(this).parents('tr').children('td').eq(2).text();
+        for(var id in data){
+            for(var key in data[id]){
+                if(key == 'file_name'){
+                    if(data[id][key]==key_temp){
+                        delete data[id];
+
+                    }
+                }
+            }
+        }
+        console.log( JSON.stringify(data) );
+     $.ajax({
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          dataType: 'json',
+          url: '/getjson',
+          success: function (e) {
+              console.log(e);
+              Materialize.toast("success", 4000);
+          },
+          error: function(error) {
+          console.log(error);
+      }
+      });
+  });
+});
+
+
+
+
+</script>
 
 
 {% if toast is defined %}
@@ -143,6 +179,11 @@ $(document).ready(function(){
           {% from "_table.html" import render_field %} <!-- import a macro to render table -->
           {{ render_field(file_names) }} <!-- call the macro to the render table -->
         <!-- Else, no files to render -->
+
+          <div>
+            <button class="btn btn-primary" id="getlabel">Submit</button>
+          </div>
+
         {% else %}
 
           <!-- Input Files Form -->
@@ -151,7 +192,7 @@ $(document).ready(function(){
               <input type="file" name="file" accept=".csv" multiple />
               <p>Drag your files here or click in this area.</p>
               <div>
-                <button type="" value="">Submit</button>
+                <button type="submit" value="">Submit</button>
               </div>
             </form>
           </div> <!-- End row 1 of 2 -->
