@@ -1,0 +1,61 @@
+{% extends "nav.html" %}
+{% set active_page = "transformData" %}
+{% block content %}
+<!-- Import navbar from parent -->
+{% block nav %}{{ super() }}{% endblock %}
+
+<!-- Begin Transform Data tab -->
+<div id="transformData" class="tab-pane fade in active">
+  <div style="width: 60%; margin: auto">
+    <h3 class="text-center">Instructions</h3>
+    <div>
+      <p class="text-center">
+        Set parameters for the data transformation here.<br>
+        Press "Transform Data" to start the data transformation.
+      </p>
+    </div>
+  </div>
+
+  <hr style="border-color: silver">
+
+  <!-- row: columns to include -->
+  <div class="container" style="width: 75%;">
+    <div class="row">
+      <div class="col-sm-4">
+        <select class="selectpicker" multiple data-actions-box="true" multiple title="Select labels to include">
+          <option>label1</option>
+          <option>label2</option>
+          <option>label3</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Select Method <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-sm-6" style="display:flex;justify-content:flex-end;">
+        <form class="form-inline">
+          <label class="sr-only" for="inlineFormInput">Name</label>
+          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter FFT Size">
+
+          <label class="sr-only" for="inlineFormInput">Name</label>
+          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Chunk Size">
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <div style="display:flex;justify-content:center;margin-top:2%;">
+    <button type="button" class="btn btn-primary btn-block " style="width: 20%;">Transform Data</button>
+  </div>
+
+  </div
+
+  {% endblock %}

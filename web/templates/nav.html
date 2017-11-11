@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block nav %}
+
+
+<!-- TODO: Animate Header -->
+
+<style type="text/css">
+ a:hover {
+  cursor:pointer;
+ }
+</style>
+
+<ul  class="tabs tabs-fixed-width">
+   <li class="tab col s3"><a class="{{ 'active' if active_page == 'home' else '' }}" id= "home">HOME</a></li>
+   <li class="tab col s3"><a class="{{ 'active' if active_page == 'loadFiles' else '' }}" id="loadFiles">LOAD FILES</a></li>
+   <li class="tab col s3"><a class="{{ 'active' if active_page == 'transformData' else '' }}" id="mytransfromData">TRANSFORM DATA</a></li>
+   <li class="tab col s3"><a class="{{ 'active' if active_page == 'FFTPreview' else '' }}" id="FFTPreview">FFT PREVIEW</a></li>
+   <li class="tab col s3"><a class="{{ 'active' if active_page == 'configure' else '' }}" id="configure">CONFIGURE</a></li>
+   <li class="tab col s3"><a class="{{ 'active' if active_page == 'results' else '' }}" id="results">RESULTS</a></li>
+ </ul>
+
+{% endblock %}
