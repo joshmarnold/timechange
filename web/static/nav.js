@@ -1,18 +1,17 @@
 $(document).ready(function(){
     $("#home").click(function(){
-        //window.location.href = "/home";
-        window.location.href = Flask.url_for("home");
+        window.location.href = "/home";
+        // Flask.url_for("home");
     });
 
     $("#loadFiles").click(function(){
-        //window.location.href = "/loadFiles";
-        window.location.href = Flask.url_for("loadFiles");
+        window.location.href = "/loadFiles";
+        // Flask.url_for("loadFiles");
     });
 
-    $("#mytransfromData").click(function(){
-        window.location.href = "/transfromData";
-        //window.location.href = Flask.url_for("transfromData");
-        //window.location.href = Flask.url_for("transfromData");
+    $("#transformData").click(function(){
+        window.location.href = "/transformData";
+        // Flask.url_for("transformData");
     });
 
     $("#FFTPreview").click(function(){

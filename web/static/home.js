@@ -67,7 +67,7 @@ $(document).ready(function(){
 
 
         if(!lable_val){
-          Materialize.toast('Uh oh, you forgot to add a label', 4000);
+          Materialize.toast('Uh oh, you forgot to add a label', 4000, 'yellow lighten-3');
           return;
         }
         //alert(num_files+":"+Object.keys(data).length);
