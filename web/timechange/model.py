@@ -1,7 +1,7 @@
 from os import path
 from configparser import ConfigParser
-from conv_model import *
-from rnn_model import *
+from . import conv_model
+from . import rnn_model
 #For creating images from numpy arrays
 
 # from PIL import Image
@@ -13,16 +13,16 @@ from rnn_model import *
 
 def build_model(project_path):
     """Generates a compiled keras model for use in timechange training
-    Parameters: 
+    Parameters:
     project_path -- path to a timechange project"""
 
     # Extract configuration
     config = ConfigParser()
     config.read(path.join(project_path,'parameters.conf'))
-    
+
     #Extract model type from configuration
     model_type = config['DEFAULT'].get('model_type', 'convolutional_basic').strip('\"').strip('\'')
-    
+
     #Determine the model type
     if model_type == 'convolutional_basic':
         model = conv_model(project_path, config)
