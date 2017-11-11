@@ -89,19 +89,19 @@ chunk_size=64
 fft_size=128
 """
 
-def new_project(project_name="default", parent_folder=None):
+def new_project(project_path):
     """
     Create a new project
     """
 
-    #Sets the project parent folder
-    if parent_folder is None:
-        # grabs path to current dir and appends /timechange
-        parent_folder = path.expanduser("~/timechange")
+    # delete current default directory
+    if os.path.isdir(project_path):
+        shutil.rmtree(project_path)
 
     #Stores where the project profile will be kept
     # create path with parent directory and projectname
-    project_path = path.abspath(path.join(parent_folder, project_name))
+    # project_path = path.abspath(path.join(parent_folder, project_name))
+    print(project_path)
 
     #Create the project parent folder if necessary
     #folder will include:
@@ -171,20 +171,20 @@ def new_project(project_name="default", parent_folder=None):
                 path.join(project_path, "parameters.conf")))
 
 
-def add_training_file(self, label, file_path):
+def add_training_file(label, file_path, project_path):
     """Adds a training file to the dataset under a specific label
     Keyword arguments:
     label -- the label to store the filename under
     filename -- the filename to add to the database
     """
     #If the folder for the label doesn't exist, create it
-    if not path.exists(path.join(self.project_path, "csv", label)):
-        os.mkdir(path.join(self.project_path, "csv", label))
+    if not path.exists(path.join(project_path, "csv", label)):
+        os.mkdir(path.join(project_path, "csv", label))
 
     #Copy the csv file into the project
     #Uses the name of the original file.
     #TODO: generate better name
-    shutil.copyfile(file_path, path.join(self.project_path, "csv", label, path.split(file_path)[1]))
+    shutil.copyfile(file_path, path.join(project_path, "csv", label, path.split(file_path)[1]))
 
 def remove_training_file(self, label, filename):
     """Removes a training file from a label
@@ -245,5 +245,3 @@ def get_csv_labels(self):
 def get_csv_filenames(self, label):
     """Returns a list of csv filenames for a specific label from the project tree."""
     return sorted([csv_file.name for csv_file in os.scandir(path.join(self.project_path, "csv", label))])
-
-
