@@ -9,6 +9,7 @@ from flask import render_template, redirect, flash, url_for, request
 from werkzeug import secure_filename
 
 
+
 APP_ROOT = path.dirname(path.abspath(__file__))
 ALLOWED_EXTENSIONS = set(['csv', 'xls', 'xlsx'])
 UPLOAD_FOLDER = path.join(APP_ROOT, 'csv/')
@@ -28,7 +29,6 @@ def loadFiles():
 
 @app.route('/transformData')
 def transformData():
-    print("heroer")
     return render_template("transformData.html")
 
 @app.route('/FFTPreview')

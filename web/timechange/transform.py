@@ -26,26 +26,113 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
-
+#For reading config files
+from configparser import ConfigParser
+#For navigating filesystems
+import os
+from os import path
+#For deleting directories
+import shutil
+#For creating images from numpy arrays
+from PIL import Image
+#For reading csv files
+import pandas
+#For performing transformations
+from . import transform
+from . import model
+from model import *
+from . import train
+from train import *
 import numpy as np
 from scipy import signal
 
-def extract(time_series, method, **kwargs):
-    """Extracts features from a time series or array of time series and outputs an image
+
+def convert_all_csv(project_path, method, chunk_size, fft_size):
+    """Iterates over the training files set and generates corresponding images
+    using the feature extraction method
     Keyword arguments:
-    time_series -- A numpy array or array of numpy arrays representing the time series data
-    method -- the type of feature extraction to use
-    chunk_size -- Used for some feature extraction methods. Pads or truncates data
-    """
-    #Switches on method
-    if method == "fft":
-        return simple_fourier(time_series, **kwargs)
-    elif method == "spectrogram":
-        return spectrogram(time_series)
-    elif method == "nothing":
-        return nothing(time_series)
-    else:
-        raise Exception("Invalid feature extraction method")
+    method -- Method used by extract_features to generate image data. Default: fft"""
+
+    # Extract parameters from project path
+    transform_config = ConfigParser()
+    transform_config.read(path.join(project_path, "transform.conf"))
+
+    # Columns to read from the csv
+    columns = transform_config["DEFAULT"].get("columns", "").split(",")
+
+    # Default to reading all columns if this fails
+    if columns == [""]:
+        columns = None
+
+    # Clear subfolders in image folder without deleting images folder
+    # This is to make sure old images don't stick around
+    # In case a file has been removed
+    for label in os.scandir(path.join(project_path, "images")):
+        # Delete the folder
+        try:
+            shutil.rmtree(label.path)
+        except FileNotFoundError as _:
+            # Do nothing
+            pass
+
+    # Get length of longest csv file
+    max_length = -1
+
+    # Iterate over labels
+    for label in os.scandir(path.join(project_path, "csv")):
+
+        # Iterate over a label's csv files
+        for csv_file in os.scandir(label.path):
+            with open(csv_file.path, 'r') as csv_file_handle:
+                # Get number of lines in file and keep track of longest file
+                max_length = max(max_length, len(csv_file_handle.readlines()) - 1)
+
+    # Generate new images
+    # Iterate over labels
+    for label in os.scandir(path.join(project_path, "csv")):
+        # Make a folder for the label
+        os.mkdir(path.join(project_path, "images", label.name))
+
+        # Iterate over a label's csv files
+        for csv_file in os.scandir(label.path):
+            # Read the csv into a numpy array
+            data = pandas.read_csv(csv_file.path, usecols=columns).as_matrix().T
+
+            # Pad the csv
+            data = np.pad(data, ((0, 0), (0, max_length - data.shape[1])), 'constant', constant_values=0.0)
+
+            # Extract features from the numpy array
+            # Uses same variable name since data is not needed after feature extraction
+            data = transform.extract(data, method, chunk_size=chunk_size, fft_size=fft_size)
+
+            # TODO: normalize and imageize here
+            # TODO: Don't imagize at all
+            # Generate an image from the resulting feature representation
+            img = Image.fromarray((data * 255).astype(np.uint8), "RGB")
+
+            # Save the image to the desired file path
+            # project/csv/example/1.csv becomes
+            # project/images/example/1.png
+            img.save(
+                path.join(project_path, "images", label.name, "{}.png".format(path.splitext(csv_file.name)[0])))
+
+        def extract(time_series, method, **kwargs):
+            """Extracts features from a time series or array of time series and outputs an image
+            Keyword arguments:
+            time_series -- A numpy array or array of numpy arrays representing the time series data
+            method -- the type of feature extraction to use
+            chunk_size -- Used for some feature extraction methods. Pads or truncates data
+            """
+            # Switches on method
+            if method == "fft":
+                return simple_fourier(time_series, **kwargs)
+            elif method == "spectrogram":
+                return spectrogram(time_series)
+            elif method == "nothing":
+                return nothing(time_series)
+            else:
+                raise Exception("Invalid feature extraction method")
+
 
 #Possible enhancements
 #TODO: separate real and imaginary components so as not to lose data

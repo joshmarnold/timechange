@@ -88,204 +88,162 @@ chunk_size=64
 #Size of the fft output
 fft_size=128
 """
-class TimeChange:
 
-    def __init__(self, project_name="default", parent_folder=None):
-        """Constructor
-        raises Exception the project fails to either save or load
-        """
+def new_project(project_name="default", parent_folder=None):
+    """
+    Create a new project
+    """
 
-        #TODO:better default name to avoid collision
-        #Store the project's name
-        self.project_name = project_name
+    #Sets the project parent folder
+    if parent_folder is None:
+        # grabs path to current dir and appends /timechange
+        parent_folder = path.expanduser("~/timechange")
 
-        #Sets the project parent folder
-        if parent_folder is None:
-            parent_folder = path.expanduser("~/timechange")     # grabs path to current dir and appends /timechange
+    #Stores where the project profile will be kept
+    # create path with parent directory and projectname
+    project_path = path.abspath(path.join(parent_folder, project_name))
 
-        #Stores where the project profile will be kept
-        self.project_path = path.abspath(path.join(parent_folder, project_name))    # create path with parent directory and projectname
+    #Create the project parent folder if necessary
+    #folder will include:
+    #   - /path/to/timechange
+    #       - /csv
+    #       - /images
+    #       - /models
+    #       - parameters.conf
+    #If not, assume the project already exists
+    if not path.exists(project_path):
+        #New project
+        os.makedirs(project_path)                      # makes multiple directories
 
-        #Create the project parent folder if necessary
-        #folder will include:
-        #   - /path/to/timechange
-        #       - /csv
-        #       - /images
-        #       - /models
-        #       - parameters.conf   
-        #If not, assume the project already exists
-        if not path.exists(self.project_path):
-            #New project
-            os.makedirs(self.project_path)                      # makes multiple directories
+        #Make project skeleton
+        os.mkdir(path.join(project_path, "csv"))       # makes a directory project_path/csv
+        os.mkdir(path.join(project_path, "images"))    # makes a directory project_path/images
+        os.mkdir(path.join(project_path, "models"))    # makes a directory project_path/models
 
-            #Make project skeleton
-            os.mkdir(path.join(self.project_path, "csv"))       # makes a directory project_path/csv
-            os.mkdir(path.join(self.project_path, "images"))    # makes a directory project_path/images
-            os.mkdir(path.join(self.project_path, "models"))    # makes a directory project_path/models
+        #Create a parameters file
+        # first line creates a file, config_file, in path project_path/parameters.conf
+        with open(path.join(project_path, "parameters.conf"), "w") as config_file:
+            config_file.write(default_parameter_config)
 
-            #Create a parameters file
-            # first line creates a file, config_file, in path project_path/parameters.conf
-            with open(path.join(self.project_path, "parameters.conf"), "w") as config_file:
-                config_file.write(default_parameter_config)
+        #Create a transform file -- same procedure as above
+        with open(path.join(project_path, "transform.conf"), "w") as config_file:
+            config_file.write(default_transform_config)
 
-            #Create a transform file -- same procedure as above
-            with open(path.join(self.project_path, "transform.conf"), "w") as config_file:
-                config_file.write(default_transform_config)
+    else:
+        #Existing project
+        #Folder names and the file types within them
+        folder_structure = {'csv':'csv', 'images':'png', 'models':'h5'}
 
-        else:
-            #Existing project
-            #Folder names and the file types within them
-            folder_structure = {'csv':'csv', 'images':'png', 'models':'h5'}
+        #Iterate over folder structure
+        for folder_name, file_type in folder_structure.items():
+            #Check if directory exists
+            if path.exists(path.join(project_path, folder_name)):
 
-            #Iterate over folder structure
-            for folder_name, file_type in folder_structure.items():
-                #Check if directory exists
-                if path.exists(path.join(self.project_path, folder_name)):
-
-                    #Check if all files in that folder are csv files
-                    for label in os.scandir(path.join(self.project_path, folder_name)):
-                        #So this works on 1 and 2-layer folders
-                        try:
-                            #Scan subdirectories
-                            for entry in os.scandir(path.join(self.project_path, folder_name, label.name)):
-                                #TODO: allow other extensions for ex: image
-                                if not entry.name.endswith(file_type):
-                                    raise Exception("{} is not a {} file".format(
-                                        path.join(self.project_path, folder_name, entry.name),
-                                        file_type))
-                        except NotADirectoryError:
-                            #Scan subfiles
+                #Check if all files in that folder are csv files
+                for label in os.scandir(path.join(project_path, folder_name)):
+                    #So this works on 1 and 2-layer folders
+                    try:
+                        #Scan subdirectories
+                        for entry in os.scandir(path.join(project_path, folder_name, label.name)):
                             #TODO: allow other extensions for ex: image
-                            if not label.name.endswith(file_type):
+                            if not entry.name.endswith(file_type):
                                 raise Exception("{} is not a {} file".format(
-                                    path.join(self.project_path, folder_name, label.name),
+                                    path.join(project_path, folder_name, entry.name),
                                     file_type))
+                    except NotADirectoryError:
+                        #Scan subfiles
+                        #TODO: allow other extensions for ex: image
+                        if not label.name.endswith(file_type):
+                            raise Exception("{} is not a {} file".format(
+                                path.join(project_path, folder_name, label.name),
+                                file_type))
 
-                else:
-                    #directory does not exist
-                    raise Exception("{} cannot be a timechange project because {} does not exist".format(
-                        self.project_path,
-                        path.join(self.project_path, folder_name)))
-
-            #Check for the config file
-            if not path.exists(path.join(self.project_path, "parameters.conf")):
+            else:
+                #directory does not exist
                 raise Exception("{} cannot be a timechange project because {} does not exist".format(
-                    self.project_path,
-                    path.join(self.project_path, "parameters.conf")))
+                    project_path,
+                    path.join(project_path, folder_name)))
 
-        #Stores what csv columns to use
-        #TODO: store this value in a file instead of as a private member
-        self.columns = None #Default values
+        #Check for the config file
+        if not path.exists(path.join(project_path, "parameters.conf")):
+            raise Exception("{} cannot be a timechange project because {} does not exist".format(
+                project_path,
+                path.join(project_path, "parameters.conf")))
 
-        # Create a queue to communicate with the worker thread
-        self.worker_queue = Queue()
 
-        # Create a queue to recieve messages from the worker thread
-        self.result_queue = Queue()
+def add_training_file(self, label, file_path):
+    """Adds a training file to the dataset under a specific label
+    Keyword arguments:
+    label -- the label to store the filename under
+    filename -- the filename to add to the database
+    """
+    #If the folder for the label doesn't exist, create it
+    if not path.exists(path.join(self.project_path, "csv", label)):
+        os.mkdir(path.join(self.project_path, "csv", label))
 
-        # Start a worker thread, passing argument
-        self.worker = Thread(target=worker.worker_thread,
-                             name="worker",
-                             args=(self.project_path,
-                                   self.worker_queue,
-                                   self.result_queue),
-                             daemon=True)
-        self.worker.start()
+    #Copy the csv file into the project
+    #Uses the name of the original file.
+    #TODO: generate better name
+    shutil.copyfile(file_path, path.join(self.project_path, "csv", label, path.split(file_path)[1]))
 
-    def add_training_file(self, label, file_path):
-        """Adds a training file to the dataset under a specific label
-        Keyword arguments:
-        label -- the label to store the filename under
-        filename -- the filename to add to the database
-        """
-        #If the folder for the label doesn't exist, create it
-        if not path.exists(path.join(self.project_path, "csv", label)):
-            os.mkdir(path.join(self.project_path, "csv", label))
+def remove_training_file(self, label, filename):
+    """Removes a training file from a label
+    Keyword arguments:
+    label -- the label to store the filename under
+    filename -- the filename to add to the project
+    """
+    #Removes the file with the given name from the label's directory
+    os.remove(file_path, path.join(self.project_path, "csv", label, path.split(file_path)[1]))
 
-        #Copy the csv file into the project
-        #Uses the name of the original file.
-        #TODO: generate better name
-        shutil.copyfile(file_path, path.join(self.project_path, "csv", label, path.split(file_path)[1]))
+    #Check to see if this was the last entry for a label
+    if len(os.scandir(path.join(self.project_path, "csv", label))) == 0:
+        #If this was the last entry, delete the label
+        shutil.rmtree(path.join(self.project_path, "csv", label))
 
-    def remove_training_file(self, label, filename):
-        """Removes a training file from a label
-        Keyword arguments:
-        label -- the label to store the filename under
-        filename -- the filename to add to the project
-        """
-        #Removes the file with the given name from the label's directory
-        os.remove(file_path, path.join(self.project_path, "csv", label, path.split(file_path)[1]))
+def set_columns(self, columns):
+    """Sets the CSV columns to be used by the transform process"""
+    #Load the config for transform parameters
+    transform_config = ConfigParser()
+    transform_config.read(path.join(self.project_path, "transform.conf"))
+    transform_config["DEFAULT"]["columns"] = ",".join(map(str, columns))
 
-        #Check to see if this was the last entry for a label
-        if len(os.scandir(path.join(self.project_path, "csv", label))) == 0:
-            #If this was the last entry, delete the label
-            shutil.rmtree(path.join(self.project_path, "csv", label))
+    with open(path.join(self.project_path, "transform.conf"), "w") as transform_config_file:
+        transform_config.write(transform_config_file)
 
-    def set_columns(self, columns):
-        """Sets the CSV columns to be used by the transform process"""
-        #Load the config for transform parameters
-        transform_config = ConfigParser()
-        transform_config.read(path.join(self.project_path, "transform.conf"))
-        transform_config["DEFAULT"]["columns"] = ",".join(map(str, columns))
+def set_transform_parameters(self, **kwargs):
+    """Writes transform parameters to the transform configuration"""
+    #Load the config for transform parameters
+    transform_config = ConfigParser()
+    transform_config.read(path.join(self.project_path, "transform.conf"))
 
-        with open(path.join(self.project_path, "transform.conf"), "w") as transform_config_file:
-            transform_config.write(transform_config_file)
+    for parameter, value in kwargs.items():
+        transform_config["DEFAULT"][parameter] = value
 
-    def set_transform_parameters(self, **kwargs):
-        """Writes transform parameters to the transform configuration"""
-        #Load the config for transform parameters
-        transform_config = ConfigParser()
-        transform_config.read(path.join(self.project_path, "transform.conf"))
+    with open(path.join(self.project_path, "transform.conf"), "w") as transform_config_file:
+        transform_config.write(transform_config_file)
 
-        for parameter, value in kwargs.items():
-            transform_config["DEFAULT"][parameter] = value
+def get_transform_parameters(self):
+    """Gets the transform parameters"""
+    #Load the config for transform parameters
+    transform_config = ConfigParser()
+    transform_config.read(path.join(self.project_path, "transform.conf"))
+    return transform_config["DEFAULT"]
 
-        with open(path.join(self.project_path, "transform.conf"), "w") as transform_config_file:
-            transform_config.write(transform_config_file)
+def get_csv_columns(self):
+    """Reads a csv file and returns the column names
+    """
+    try:
+        example_csv = os.scandir(os.scandir(path.join(self.project_path, "csv")).__next__().path).__next__().path
+        return list(pandas.read_csv(example_csv, nrows=1).columns)
+    except:
+        return []
 
-    def get_transform_parameters(self):
-        """Gets the transform parameters"""
-        #Load the config for transform parameters
-        transform_config = ConfigParser()
-        transform_config.read(path.join(self.project_path, "transform.conf"))
-        return transform_config["DEFAULT"]
+def get_csv_labels(self):
+    """Returns a list of csv labels from the project tree."""
+    return sorted([folder.name for folder in os.scandir(path.join(self.project_path, "csv"))])
 
-    def get_csv_columns(self):
-        """Reads a csv file and returns the column names
-        """
-        try:
-            example_csv = os.scandir(os.scandir(path.join(self.project_path, "csv")).__next__().path).__next__().path
-            return list(pandas.read_csv(example_csv, nrows=1).columns)
-        except:
-            return []
+def get_csv_filenames(self, label):
+    """Returns a list of csv filenames for a specific label from the project tree."""
+    return sorted([csv_file.name for csv_file in os.scandir(path.join(self.project_path, "csv", label))])
 
-    def get_csv_labels(self):
-        """Returns a list of csv labels from the project tree."""
-        return sorted([folder.name for folder in os.scandir(path.join(self.project_path, "csv"))])
 
-    def get_csv_filenames(self, label):
-        """Returns a list of csv filenames for a specific label from the project tree."""
-        return sorted([csv_file.name for csv_file in os.scandir(path.join(self.project_path, "csv", label))])
-
-    def convert_all_csv(self):
-        """Tells the worker thread to perform transformation on the csv data
-        Preconditions
-            CSV files have been added to the project with add_training_file
-        """
-        self.worker_queue.put({"command":"transform"})
-
-    def build_model(self):
-        """Tells the worker thread to build a keras model based on project_path/parameters.conf
-        Preconditions
-            A project_path/parameters.conf is a valid model parameter file
-        """
-        self.worker_queue.put({"command":"build_model"})
-
-    def train(self):
-        """Tells the worker thread to start training a keras model based on the image data
-        Preconditions
-            Data has been generated with convert_all_csv
-            A valid model has been generated with build_model
-        """
-        self.worker_queue.put({"command":"train"})
-        return {"acc":[0], "loss":[0]}
