@@ -22,19 +22,17 @@ app.config['PROJECT_PATH'] = PROJECT_PATH
 @app.route('/')
 @app.route('/home')
 def home():
-
+    file_names = []
     # Initialize function from __init__.py
-    return render_template("home.html")
+    return render_template("loadFiles.html", file_names=file_names)
 
 @app.route('/loadFiles')
 def loadFiles():
     file_names = []
-    toast=False
-    return render_template("loadFiles.html", file_names=file_names, toast=toast)
+    return render_template("loadFiles.html", file_names=file_names)
 
-@app.route('/transfromData')
+@app.route('/transformData')
 def transformData():
-
     return render_template("transformData.html")
 
 @app.route('/FFTPreview')
@@ -66,13 +64,13 @@ def upload():
     for file in request.files.getlist("file"):
         # if an empty form, return
         if file.filename == '':
-            return render_template('loadFiles.html', file_names=file_names, toast="Uh oh, you forgot to add files :)")
+            return render_template('loadFiles.html', file_names=file_names, flag='fail', message="Uh oh, you forgot to add files")
         file_names.append(secure_filename(file.filename))
         filename = secure_filename(file.filename)
         file.save(os.path.join(target, filename))
         file.close()
 
-    return render_template('loadFiles.html', file_names=file_names)
+    return render_template('loadFiles.html', file_names=file_names, flag='success', message="Success")
 
 
 @app.route('/getjson', methods=['POST'])
@@ -84,7 +82,7 @@ def getjson():
     # converts the JSON object into Python recognizable data
     req_data = request.get_json()
     print(req_data.is_json())
-    
+
     fileName_label = req_data['file_name']
     print(fileName_label)
     # print(fileName_label)

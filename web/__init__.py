@@ -1,5 +1,4 @@
 from flask import Flask
-
 from flask_jsglue import JSGlue
 
 app = Flask(__name__)

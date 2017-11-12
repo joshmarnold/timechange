@@ -1,4 +1,4 @@
-{% macro render_messages(message, flag) %}
+{% macro render_messages(flag, message) %}
 
 <style>
 /* Toast Styling  */
@@ -16,7 +16,7 @@
 
 <script>
     $(document).ready(function(){
-       Materialize.toast("{{message}}", 4000, 'green lighten-1');
+       Materialize.toast("{{message}}", 2000, 'green lighten-1');
     });
 </script>
 {% else %}
@@ -28,7 +28,7 @@
 <script>
 
     $(document).ready(function(){
-       Materialize.toast("{{message}}", 4000, 'yellow lighten-3');
+       Materialize.toast("{{message}}", 2000, 'yellow lighten-3');
     });
 </script>
 {% endif %}
