@@ -11,48 +11,77 @@
 
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-<script type=text/javascript src="{{url_for('static', filename='jquery.js') }}"></script>
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<script type=text/javascript src="{{url_for('static', filename='nav.js') }}"></script>
-<script type=text/javascript src="{{url_for('static', filename='home.js') }}"></script>
-{% block head %}{% endblock %}
+  <script type=text/javascript src="{{url_for('static', filename='jquery.js') }}"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script type=text/javascript src="{{url_for('static', filename='nav.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='home.js') }}"></script>
+  {% block head %}{% endblock %}
 
   <style>
+
+
+
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+  /* overriding materialize button */
+  .btn {
+    color: #fff;
+    /*background: #16a085;*/
+    background: #173645 !important;
+    border: none;
+    font-weight: normal;
+  
+    transition: all .2s ease;
+    outline: none;
+  }
+
+  .btn:hover{
+    /*background: #149174;*/
+    background: #516874 !important;
+    color: #000;
+  }
 
   .carousel .carousel-item{
     width:100%;
   }
 
+  nav ul li:hover {
+    background-color: white !important;
+  }
+
   .tabs {
-    border: 1px solid #e1e1e1;
-    background: white;
+    border: 3px solid gray
+    background: black;
   }
 
   .tabs .indicator {
-    background-color: #b71c1c;
+    background-color: #173645;
   }
 
   .tabs .tab a.active {
-    color: #1a237e;
+    color: #000 !important;
   }
 
   .tabs .tab a:hover {
-    color: #1a237e;
+    color: #000 !important;
   }
 
   .tabs .tab a {
-    color: #797979;
+    color: #000;
   }
 
   html {
-    box-sizing: border-box;
-    -ms-overflow-style: scrollbar;
-    .nightSmoothie {
-      background: #A2A2A4;
-      background-image: radial-gradient(rgba(255,255,255,0.50) 50%, rgba(0,0,0,0.50) 200%);
-      background-blend-mode: multiply;
-    }
+    background-color: #f7f7f7;
+    color: black;
+    font-family: Helvetica, sans-serif;
+        -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    color: black !important;
+    height: 100vh;
+    /*overflow: hidden;*/
   }
 
   @media (min-width: 576px) {
@@ -81,9 +110,17 @@
   </style>
 </head>
 <body>
-  <div style="margin-top: 100px;" class="container"></div>
-  <div class="container">
-    {% block content %}{% endblock %}
+  <div style="width: 100% !important; height: 25%; background-color: #173645 !important; display: flex; align-items: center; color: white; font-size: 1.3em; font-weight: lighter;">
+    <div class="container valign-wrapper" >
+      <p class="text-justify">TimeChange allows users to easily convert timeseries csv formatted
+        data into fourier transform images and classify them using existing
+        machine learning libraries without a deep knowledge of those tools.<br><br>
+        To begin, load and label your csv files!
+      </p>
+    </div>
   </div>
+
+  {% block content %}{% endblock %}
+
 </body>
 </html>

@@ -11,7 +11,7 @@ $(document).ready(function(){
 
     $("#mytransfromData").click(function(){
         //window.location.href = "/transfromData";
-        window.location.href = Flask.url_for("transfromData");
+        window.location.href = Flask.url_for("transformData");
         //window.location.href = Flask.url_for("transfromData");
     });
 

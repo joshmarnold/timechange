@@ -43,7 +43,7 @@ $(document).ready(function(){
         dataType: 'json',
         url: '/getjson',
         success: function () {
-        
+
           Materialize.toast("success", 4000);
         },
         error: function(error) {
@@ -56,18 +56,18 @@ $(document).ready(function(){
 
 
 
-  if(e.shiftKey){
-    if(!end){
-      end = this;
-      return false;
-    }
+  // if(e.shiftKey){
+  //   if(!end){
+  //     end = this;
+  //     return false;
+  //   }
 
-    var first = $(this).parents('tr').children('td').eq(1).text();
-    var last = $(end).parents('tr').children('td').eq(1).text();
-
-    //check the boxes between first and last
-    $('.checkthis').slice(Math.min(first, last), Math.max(first, last)-1).prop("checked", end.checked);
-  }
+  //   var first = $(this).parents('tr').children('td').eq(1).text();
+  //   var last = $(end).parents('tr').children('td').eq(1).text();
+  //
+  //   //check the boxes between first and last
+  //   $('.checkthis').slice(Math.min(first, last), Math.max(first, last)-1).prop("checked", end.checked);
+  // }
 
   end = this;
 });
