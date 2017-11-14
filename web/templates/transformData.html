@@ -30,7 +30,7 @@
       <div class="row">
 
         <div class="col s6">
-          <h4 class="text-center">Model Type</h4>
+          <h4 class="text-center">Transform Type</h4>
             <p>
               <input class="with-gap" name="group1" type="radio" id="none" />
               <label for="none">None</label>
@@ -48,10 +48,13 @@
         <div class="col s6">
           <div class="form-inline">
             <label class="sr-only" for="inlineFormInput">FFT Size</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="64">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" name="fft_size" placeholder="64">
 
             <label class="sr-only" for="inlineFormInput">Chunk Size</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="32">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" name="chunk_size" placeholder="32">
+
+            <label class="sr-only" for="inlineFormInput">Columns (Comma Separated)</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" name="columns" placeholder="1, 2, 3">
           </div>
         </div>
       </div>

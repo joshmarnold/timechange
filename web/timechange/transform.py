@@ -45,18 +45,20 @@ import numpy as np
 from scipy import signal
 
 
-def convert_all_csv(project_path, method, chunk_size, fft_size):
-    """Iterates over the training files set and generates corresponding images
+def convert_all_csv(project_path, method, chunk_size, fft_size, columns):
+    """
+    Iterates over the training files set and generates corresponding images
     using the feature extraction method
     Keyword arguments:
-    method -- Method used by extract_features to generate image data. Default: fft"""
-
-    # Extract parameters from project path
-    transform_config = ConfigParser()
-    transform_config.read(path.join(project_path, "transform.conf"))
+    project path -- path to project data (kept as a global in flask)
+    method -- Method used by extract_features to generate image data. Default: fft
+    chunk_size -- number of timesteps to include in each fft
+    fft_size -- size of the fft
+    columns -- comma separated string of columns to use
+    """
 
     # Columns to read from the csv
-    columns = transform_config["DEFAULT"].get("columns", "").split(",")
+    columns = columns.split(",")
 
     # Default to reading all columns if this fails
     if columns == [""]:
@@ -114,22 +116,23 @@ def convert_all_csv(project_path, method, chunk_size, fft_size):
             img.save(
                 path.join(project_path, "images", label.name, "{}.png".format(path.splitext(csv_file.name)[0])))
 
-        def extract(time_series, method, **kwargs):
-            """Extracts features from a time series or array of time series and outputs an image
-            Keyword arguments:
-            time_series -- A numpy array or array of numpy arrays representing the time series data
-            method -- the type of feature extraction to use
-            chunk_size -- Used for some feature extraction methods. Pads or truncates data
-            """
-            # Switches on method
-            if method == "fft":
-                return simple_fourier(time_series, **kwargs)
-            elif method == "spectrogram":
-                return spectrogram(time_series)
-            elif method == "nothing":
-                return nothing(time_series)
-            else:
-                raise Exception("Invalid feature extraction method")
+
+def extract(time_series, method, **kwargs):
+    """Extracts features from a time series or array of time series and outputs an image
+    Keyword arguments:
+    time_series -- A numpy array or array of numpy arrays representing the time series data
+    method -- the type of feature extraction to use
+    chunk_size -- Used for some feature extraction methods. Pads or truncates data
+    """
+    # Switches on method
+    if method == "fft":
+        return simple_fourier(time_series, **kwargs)
+    elif method == "spectrogram":
+        return spectrogram(time_series)
+    elif method == "nothing":
+        return nothing(time_series)
+    else:
+        raise Exception("Invalid feature extraction method")
 
 
 #Possible enhancements
