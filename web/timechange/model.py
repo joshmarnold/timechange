@@ -11,10 +11,10 @@ def build_model(project_path, config):
     config -- dict containing configuration setting (model_type, num_blocks, num_filters, learning_rate)
     """
 
-    #Extract model type from configuration
+    # Extract model type from configuration
     model_type = config['model_type']
 
-    #Determine the model type
+    # Determine the model type
     if model_type == 'convolutional':
         model = conv_model(project_path, config)
     elif model_type == 'rnn':
@@ -22,6 +22,6 @@ def build_model(project_path, config):
     else:
         raise Exception("Invalid neural net type")
 
-    #Output the model
+    # Output the model
     model.save(path.join(project_path, "models", "latest.h5"))
 
