@@ -78,9 +78,9 @@ def getjson():
     # path to files
     target = path.join(PROJECT_PATH, "csv/")
 
-    event_data = request.get_json(cache=True)
-    for x in range(0,5):
-        return event_data['hello']
+    post_data = request.get_json()
+
+    print( post_data[4]['file_name'] )
 
     # converts the JSON object into Python recognizable data
     #req_data = request.get_json()
@@ -95,7 +95,7 @@ def getjson():
     #     add_training_file(row["label"],PROJECT_PATH, path.join(target, row['file_name']))
 
     # return "success!"
-    # return (''), 204
+    return (''), 204
 
 
 @app.route('/alerts', methods=['POST'])
