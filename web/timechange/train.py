@@ -6,10 +6,12 @@ from PIL import Image
 import os
 from os import path
 
-def train(project_path, output_queue):
-    """Trains a neural net model on the project's dataset
+def train(project_path):
+    """
+    Trains a neural net model on the project's data set
+
     Parameters:
-    project_path -- 
+    project_path -- path to project's data (stored as global in flask)
     """
 
     # load the compiled model

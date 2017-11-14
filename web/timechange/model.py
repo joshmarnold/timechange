@@ -1,15 +1,7 @@
-from os import path
-from configparser import ConfigParser
-from . import conv_model
-from . import rnn_model
-#For creating images from numpy arrays
+from .conv_model import *
+from .rnn_model import *
+import keras
 
-# from PIL import Image
-# from keras.models import Sequential
-# from keras.layers import Convolution2D, ZeroPadding2D, MaxPooling2D
-# from keras.layers import Input, Dense, Flatten, Dropout
-# from keras.optimizers import SGD
-# from keras.backend import common as K
 
 def build_model(project_path, config):
     """
@@ -18,10 +10,6 @@ def build_model(project_path, config):
     project_path -- path to a timechange project
     config -- dict containing configuration setting (model_type, num_blocks, num_filters, learning_rate)
     """
-
-    # Extract configuration
-    config = ConfigParser()
-    config.read(path.join(project_path,'parameters.conf'))
 
     #Extract model type from configuration
     model_type = config['model_type']

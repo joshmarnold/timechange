@@ -19,11 +19,11 @@
           <h3>Model Type</h3>
           <hr style="border-color: silver;">
             <p>
-              <input class="with-gap" name="group1" type="radio" id="convolutional" />
+              <input class="with-gap" name="model_type" type="radio" id="convolutional" />
               <label for="convolutional">Convolutional</label>
             </p>
             <p>
-              <input class="with-gap" name="group1" type="radio" id="rnn" />
+              <input class="with-gap" name="model_type" type="radio" id="rnn" />
               <label for="rnn">RNN</label>
             </p>
         </div>
@@ -31,13 +31,13 @@
         <div class="col s6">
           <div class="form-inline">
             <label class="sr-only" for="inlineFormInput">Number of Blocks</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="num_blocks" placeholder="64">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="num_blocks" placeholder="64">
 
             <label class="sr-only" for="inlineFormInput">Number of Filters</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="num_filters" placeholder="32">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="num_filters" placeholder="32">
 
             <label class="sr-only" for="inlineFormInput">Learning Rate</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="learning_rate" placeholder="32">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="learning_rate" placeholder="32">
           </div>
         </div>
       </div>

@@ -26,21 +26,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
-#For reading config files
-from configparser import ConfigParser
-#For navigating filesystems
+
+# For navigating filesystems
 import os
 from os import path
-#For deleting directories
+# For deleting directories
 import shutil
-#For creating images from numpy arrays
+# For creating images from numpy arrays
 from PIL import Image
-#For reading csv files
+# For reading csv files
 import pandas
-#For performing transformations
-from . import transform
-from .model import *
-from .train import *
 import numpy as np
 from scipy import signal
 
@@ -135,20 +130,21 @@ def extract(time_series, method, **kwargs):
         raise Exception("Invalid feature extraction method")
 
 
-#Possible enhancements
-#TODO: separate real and imaginary components so as not to lose data
-#TODO: split time series into chunks
-#TODO: ignoring values with little information
-#TODO: version with axes
+# Possible enhancements
+# TODO: separate real and imaginary components so as not to lose data
+# TODO: split time series into chunks
+# TODO: ignoring values with little information
+# TODO: version with axes
 def simple_fourier(time_series, chunk_size=64, fft_size=128):
-    """Performs a basic fourier transform across the entire time series. The imaginary results are normalized.
+    """
+    Performs a basic fourier transform across the entire time series. The imaginary results are normalized.
     Keyword arguments:
     time_series -- The time series analyse as a 2d numpy array
     chunk_size -- The size value to be passed to numpy's FFT. Values higher than the data size will pad zeroes.
                  Values lower than the data size will remove elements.
                  With FFT, it is recommended to use powers of 2 here
     """
-    #Store the number of time series streams
+    # Store the number of time series streams
     num_time_series = time_series.shape[0]
     
     # Pad the data to chunk size
@@ -169,38 +165,41 @@ def simple_fourier(time_series, chunk_size=64, fft_size=128):
     # Reshape it back to num_waves, * for normalization
     time_series = time_series.reshape((num_time_series, np.product(time_series.shape) // num_time_series))
     
-    #Normalize against maximum value per row to get all values between 0 and 1
-    #Extract max values and replace 0s to avoid divide by 0 issue
+    # Normalize against maximum value per row to get all values between 0 and 1
+    # Extract max values and replace 0s to avoid divide by 0 issue
     max_values = np.max(time_series, axis=1)
     np.place(max_values, max_values == 0, 1)
     
-    #Normalize the time series data by row
+    # Normalize the time series data by row
     time_series = (time_series.T / max_values).T
     
-    #Reshape the time series back to its chunked shape
+    # Reshape the time series back to its chunked shape
     time_series = time_series.reshape(chunked_shape)
     
-    #TODO: configure whether shuffled or stacked
-    #Shape of this array is W, H, 3
+    # TODO: configure whether shuffled or stacked
+    # Shape of this array is W, H, 3
     return np.stack((time_series, time_series, time_series), axis=2)
 
+
 def nothing(time_series):
-    """Normalizes the data to positive values and returns it as a 2d array
+    """
+    Normalizes the data to positive values and returns it as a 2d array
     Parameters:
         time_series -- The data to transform
     """
-    #Bring all values up to positive
+    # Bring all values up to positive
     time_series -= np.min(time_series, axis=1).reshape(time_series.shape[0], 1)
     
-    #Normalize all rows per row
-    #Get normalization values
+    # Normalize all rows per row
+    # Get normalization values
     max_values = np.max(time_series, axis=1).reshape(time_series.shape[0], 1)
     
-    #Fix divby0 errors
+    # Fix divby0 errors
     max_values[max_values == 0] = 1
     
-    #Return the array normalized
+    # Return the array normalized
     return np.stack([time_series / max_values] * 3, axis=2)
+
 
 def spectrogram(time_series):
     """Performs a spectrogram
