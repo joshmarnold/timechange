@@ -20,21 +20,21 @@ def train(project_path):
 
     # Set dimension ordering
     K.set_image_dim_ordering('th')
-    
+
     # Load the image size
     image_size = Image.open(os.scandir(os.scandir(path.join(project_path, "images")).__next__().path).__next__().path).size
-    
+
     # Check to see if a model has been generated
     if model is None:
         raise Exception("There is no model stored. Please generate a model before training")
-    
+
     # Determine class mode based on folder structure
     num_classes = len(list(os.scandir(path.join(project_path, "images"))))
     if num_classes == 1:
         raise Exception("The training data only contains one class")
     else:
         class_mode = "categorical"
-    
+
     # Create a training data generator from the images folder
     train_generator = ImageDataGenerator(
             rescale=1.0/255.0,  # Scale the 0-255 pixel values down to 0.0-1.0
@@ -46,7 +46,7 @@ def train(project_path):
             batch_size=64,  # TODO: customize this
             shuffle=True,  # Shuffle the data inputs. TODO: set a random seed
             class_mode=class_mode)  # TODO: consider binary mode for systems with only 2 labels
-    
+
     # Design a callback to store training progress
     class ProgressBarCallback(keras.callbacks.Callback):
         def on_train_begin(self, logs={}):
@@ -66,7 +66,7 @@ def train(project_path):
             return
 
     model.save_weights(path.join(project_path, "models", "latest.h5"))
-    
+
     # Train the model
     # TODO: k-fold validation
     try:
