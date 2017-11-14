@@ -16,6 +16,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <script type=text/javascript src="{{url_for('static', filename='nav.js') }}"></script>
   <script type=text/javascript src="{{url_for('static', filename='home.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='submit.js') }}"></script>
   {% block head %}{% endblock %}
 
   <style>
@@ -31,7 +32,7 @@
     background: #173645 !important;
     border: none;
     font-weight: normal;
-  
+
     transition: all .2s ease;
     outline: none;
   }
@@ -111,12 +112,8 @@
 </head>
 <body>
   <div style="width: 100% !important; height: 25%; background-color: #173645 !important; display: flex; align-items: center; color: white; font-size: 1.3em; font-weight: lighter;">
-    <div class="container valign-wrapper" >
-      <p class="text-justify">TimeChange allows users to easily convert timeseries csv formatted
-        data into fourier transform images and classify them using existing
-        machine learning libraries without a deep knowledge of those tools.<br><br>
-        To begin, load and label your csv files!
-      </p>
+    <div class="container">
+      <h2 class="center-align">TimeChange</h2>
     </div>
   </div>
 

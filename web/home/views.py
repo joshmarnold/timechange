@@ -5,7 +5,7 @@ import shutil
 import os.path as path
 from web import settings
 from web import app
-from flask import render_template, redirect, flash, url_for, request
+from flask import render_template, redirect, flash, url_for, request, jsonify
 from werkzeug import secure_filename
 
 
@@ -22,9 +22,8 @@ app.config['PROJECT_PATH'] = PROJECT_PATH
 @app.route('/')
 @app.route('/home')
 def home():
-    file_names = []
     # Initialize function from __init__.py
-    return render_template("loadFiles.html", file_names=file_names)
+    return render_template("home.html")
 
 @app.route('/loadFiles')
 def loadFiles():
@@ -79,20 +78,24 @@ def getjson():
     # path to files
     target = path.join(PROJECT_PATH, "csv/")
 
-    # converts the JSON object into Python recognizable data
-    req_data = request.get_json()
-    print(req_data.is_json())
+    event_data = request.get_json(cache=True)
+    for x in range(0,5):
+        return event_data['hello']
 
-    fileName_label = req_data['file_name']
-    print(fileName_label)
+    # converts the JSON object into Python recognizable data
+    #req_data = request.get_json()
+    #print(req_data.is_json())
+
+    #fileName_label = req_data['file_name']
+    #print(fileName_label)
     # print(fileName_label)
 
-    for row in req_data:
-        print(row['file_name'])
-        add_training_file(row["label"],PROJECT_PATH, path.join(target, row['file_name']))
+    # for row in req_data:
+    #     print(row['file_name'])
+    #     add_training_file(row["label"],PROJECT_PATH, path.join(target, row['file_name']))
 
-
-    return ''
+    # return "success!"
+    # return (''), 204
 
 
 @app.route('/alerts', methods=['POST'])
