@@ -13,40 +13,39 @@
 <div class="container" style="width: 75%; margin-top:50px;">
   <div id="configure" class="tab-pane fade in active">
 
-  
-    <div class="row">
-      <div class="col s6">
-        <h3>Model Type</h3>
-        <hr style="border-color: silver;">
-        <form action="#">
-          <p>
-            <input class="with-gap" name="group1" type="radio" id="convolutional" />
-            <label for="convolutional">Convolutional</label>
-          </p>
-          <p>
-            <input class="with-gap" name="group1" type="radio" id="rnn" />
-            <label for="rnn">RNN</label>
-          </p>
-        </form>
+    <form action="" method="POST">
+      <div class="row">
+        <div class="col s6">
+          <h3>Model Type</h3>
+          <hr style="border-color: silver;">
+            <p>
+              <input class="with-gap" name="group1" type="radio" id="convolutional" />
+              <label for="convolutional">Convolutional</label>
+            </p>
+            <p>
+              <input class="with-gap" name="group1" type="radio" id="rnn" />
+              <label for="rnn">RNN</label>
+            </p>
+        </div>
+
+        <div class="col s6">
+          <div class="form-inline">
+            <label class="sr-only" for="inlineFormInput">Number of Blocks</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="num_blocks" placeholder="64">
+
+            <label class="sr-only" for="inlineFormInput">Number of Filters</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="num_filters" placeholder="32">
+
+            <label class="sr-only" for="inlineFormInput">Learning Rate</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="learning_rate" placeholder="32">
+          </div>
+        </div>
       </div>
 
-      <div class="col s6">
-        <form class="form-inline">
-          <label class="sr-only" for="inlineFormInput">Number of Blocks</label>
-          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="num_blocks" placeholder="64">
-
-          <label class="sr-only" for="inlineFormInput">Number of Filters</label>
-          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="num_filters" placeholder="32">
-
-          <label class="sr-only" for="inlineFormInput">Learning Rate</label>
-          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="learning_rate" placeholder="32">
-        </form>
+      <div class="row">
+        <button type="button" class="btn btn-primary btn-block" style="margin: auto !important;">Save</button>
       </div>
-    </div>
-
-    <div class="row">
-      <button type="button" class="btn btn-primary btn-block" style="margin: auto !important;">Save</button>
-    </div>
+    </form>
   </div>
 </div>
 
