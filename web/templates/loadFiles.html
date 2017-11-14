@@ -61,6 +61,7 @@ form button:active{
   bottom: 10%;
   left:7%;
 }
+
 </style>
 
 
@@ -82,100 +83,78 @@ $(document).ready(function(){
 
   $('form input').change(function () {
     $('form p').text(this.files.length + " file(s) selected");
+
   });
-
-  // $('#getlabel').click(function() {
-  //   if($(this).val()==1){
-  //     $(this).parents('tr').children('td').eq(3).remove();
-  //     $(this).removeAttr("value");
-  //     //remove from json obj
-  //     var key_temp = $(this).parents('tr').children('td').eq(2).text();
-  //     for(var id in data){
-  //       for(var key in data[id]){
-  //         if(key == 'file_name'){
-  //           if(data[id][key]==key_temp){
-  //             delete data[id];
-  //
-  //           }
-  //         }
-  //       }
-  //     }
-  //     console.log( JSON.stringify(data) );
-  //     $.ajax({
-  //       type: 'POST',
-  //       contentType: 'application/json',
-  //       data: JSON.stringify(data),
-  //       dataType: 'json',
-  //       url: '/getjson',
-  //       success: function () {
-  //         //console.log(e);
-  //         Materialize.toast("success", 4000);
-  //       },
-  //       error: function() {
-  //         //console.log(error);
-  //       }
-  //     });
-  });
+});
+</script>
 
 
-  </script>
+{% if flag %}
+{% from "_messages.html" import render_messages %} <!-- import a macro to render table -->
+{{ render_messages(flag, message) }}
+{% endif %}
 
-
-  {% if flag %}
-    {% from "_messages.html" import render_messages %} <!-- import a macro to render table -->
-    {{ render_messages(flag, message) }}
-  {% endif %}
-
-  <!-- Begin Load Files tab -->
-  <div id="loadFiles" class="tab-pane fade in">
+<!-- Begin Load Files tab -->
+<div id="loadFiles" class="tab-pane fade in">
   <div class="container">
 
-  <div class="row">
-  <div style="margin-left: auto; text-align: center !important;">
-  <div id="instructions" style="display: inline-block !important; text-align: left !important">
-  <h3 id="" class="center-align w3-animate-fading">Instructions</h3> <!-- TODO: Animate Header -->
-  Step 1) Click the "Select Files" button to select files from the filesystem<br>
-  Step 2) Type a label into the following input form<br>
-  Step 3) Check the files you want to apply this label to and click submit<br>
-  Step 4) Repeat steps 2 and 3 until all files are labeled<br>
-  Step 5) Click "Add to Project" button to add these labeled files to the project<br>
-  </div>
-  <div style="display: flex; align-items: center; justify-content: center; margin: 25px">
-  <a id="hideInstrBtn" class="waves-effect waves-light btn" style="margin: auto !important; color: white !important;">Hide instructions</a>
-  </div>
-  </div>
+    <div class="row">
+      <div style="margin-left: auto; text-align: center !important;">
+        <div id="instructions" style="display: inline-block !important; text-align: left !important">
+          <h3 id="" class="center-align w3-animate-fading">Instructions</h3> <!-- TODO: Animate Header -->
+          Step 1) Click the "Select Files" button to select files from the filesystem<br>
+          Step 2) Type a label into the following input form<br>
+          Step 3) Check the files you want to apply this label to and click submit<br>
+          Step 4) Repeat steps 2 and 3 until all files are labeled<br>
+          Step 5) Click "Add to Project" button to add these labeled files to the project<br>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; margin: 25px">
+          <a id="hideInstrBtn" class="waves-effect waves-light btn" style="margin: auto !important; color: white !important;">Hide instructions</a>
+        </div>
+      </div>
 
 
 
-  <!-- Table -->
-  <div class="row">
+      <!-- Table -->
+      <div class="row">
 
-  <!-- If there are files to render -->
-  {% if file_names %}
+        <!-- If there are files to render -->
+        {% if file_names %}
 
-  {% from "_table.html" import render_field %} <!-- import a macro to render table -->
-  {{ render_field(file_names) }} <!-- call the macro to the render table -->
-  <!-- Else, no files to render -->
+        {% from "_table.html" import render_field %} <!-- import a macro to render table -->
+        {{ render_field(file_names) }} <!-- call the macro to the render table -->
+        <!-- Else, no files to render -->
 
-  <div>
-  <button class="btn" id="getlabel">Submit</button>
-  </div>
+        <div style="display: flex; align-items: center; justify-content: center; margin: 25px">
+          <!-- <a id="hideInstrBtn" class="waves-effect waves-light btn" style="margin: auto !important; color: white !important;">Hide instructions</a> -->
+          <a class="btn waves-effect waves-light submitjson" type="submit" name="action" >Submit Labels</a>
+        </div>
 
-  {% else %}
+        <!-- <form style="border: none;">
 
-  <!-- Input Files Form -->
-  <div class="container">
-  <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" style="width: 75%; margin: auto !important; margin-top: 40px !important;">
-  <input type="file" name="file" accept=".csv" multiple />
-  <p>Drag your files here or click in this area.</p>
-  <div style="margin-bottom: 300px; margin-top: 20px;">
-  <button class="btn" type="submit" value="">Submit</button>
-  </div>
-  </form>
-  </div> <!-- End row 1 of 2 -->
-  {% endif %}
-  </div> <!-- End row 2 of 2 -->
-  </div> <!-- End outer container -->
+          <input type="submit" value="Submit Labels">
+        </form> -->
+
+
+        <!-- <div>
+          <a class="btn" id="getlabel" action="{{ url_for('getjson') }}" method="POST" type="submit" value="">Submit</a>
+        </div> -->
+
+        {% else %}
+
+        <!-- Input Files Form -->
+        <div class="container">
+          <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" style="width: 75%; margin: auto !important; margin-top: 40px !important;">
+            <input type="file" name="file" accept=".csv" multiple />
+            <p>Drag your files here or click in this area.</p>
+            <div style="margin-bottom: 300px; margin-top: 20px;">
+              <button class="btn" type="submit" value="">Submit</button>
+            </div>
+          </form>
+        </div> <!-- End row 1 of 2 -->
+        {% endif %}
+      </div> <!-- End row 2 of 2 -->
+    </div> <!-- End outer container -->
 
   </div> <!-- End tab-->
 
