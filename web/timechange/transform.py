@@ -98,7 +98,7 @@ def convert_all_csv(project_path, method, chunk_size, fft_size, columns):
 
             # Extract features from the numpy array
             # Uses same variable name since data is not needed after feature extraction
-            data = transform.extract(data, method, chunk_size=chunk_size, fft_size=fft_size)
+            data = extract(data, method, chunk_size=chunk_size, fft_size=fft_size)
 
             # TODO: normalize and imageize here
             # TODO: Don't imagize at all
