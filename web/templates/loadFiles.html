@@ -62,6 +62,20 @@ form button:active{
   left:7%;
 }
 
+
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+    width: 6px;
+    color: #17303D;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #17303D;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px #17303D;
+}
+
 </style>
 
 
@@ -88,6 +102,24 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- {% if slideUp == True %}
+
+<script>
+window.onload = function myFunction() {
+    $("#jumbotron").slideUp();
+    $()
+}
+</script>
+{% else %}
+
+<script>
+window.onload = function myFunction() {
+    $("#jumbotron").hide();
+    $()
+}
+</script>
+{% endif %} -->
+
 
 {% if flag %}
 {% from "_messages.html" import render_messages %} <!-- import a macro to render table -->
@@ -95,8 +127,11 @@ $(document).ready(function(){
 {% endif %}
 
 <!-- Begin Load Files tab -->
-<div id="loadFiles" class="tab-pane fade in">
-  <div class="container">
+<div style="overflow-y: scroll !important; height: 100vh !important;">
+
+
+<div id="loadFiles" class="tab-pane fade in" >
+  <div class="container"  >
 
     <div class="row">
       <div style="margin-left: auto; text-align: center !important;">
@@ -116,7 +151,7 @@ $(document).ready(function(){
 
 
       <!-- Table -->
-      <div class="row">
+      <div class="row" style="margin-bottom: 350px;">
 
         <!-- If there are files to render -->
         {% if file_names %}
@@ -157,5 +192,6 @@ $(document).ready(function(){
     </div> <!-- End outer container -->
 
   </div> <!-- End tab-->
+  </div>
 
   {% endblock %}

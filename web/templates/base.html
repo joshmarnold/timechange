@@ -17,6 +17,7 @@
   <script type=text/javascript src="{{url_for('static', filename='nav.js') }}"></script>
   <script type=text/javascript src="{{url_for('static', filename='home.js') }}"></script>
   <script type=text/javascript src="{{url_for('static', filename='submit.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='movement.js') }}"></script>
   {% block head %}{% endblock %}
 
   <style>
@@ -82,7 +83,7 @@
   body {
     color: black !important;
     height: 100vh;
-    /*overflow: hidden;*/
+    overflow: hidden;
   }
 
   @media (min-width: 576px) {
@@ -109,15 +110,35 @@
     }
   }
   </style>
+
+  <!-- <script>
+  $(document).ready(function(){
+      $("#loadFiles").click(function(){
+          {state: $("#jumbotron").hide();
+      });
+  });
+  </script> -->
+
+  <script>
+  $(document).ready(function(){
+    $(".fade").hide(0).delay(100).fadeIn(3000)
+  });
+  </script>
+
+
 </head>
 <body>
-  <div style="width: 100% !important; height: 25%; background-color: #173645 !important; display: flex; align-items: center; color: white; font-size: 1.3em; font-weight: lighter;">
+  <div class="container z-depth-2" style="height: 100%;">
+
+
+  <div id="jumbotron" style="width: 100% !important; height: 25%; background-color: #173645 !important; display: flex; align-items: center; color: white; font-size: 1.3em; font-weight: lighter;">
     <div class="container">
       <h2 class="center-align">TimeChange</h2>
     </div>
   </div>
 
-  {% block content %}{% endblock %}
 
+  {% block content %}{% endblock %}
+</div>
 </body>
 </html>
