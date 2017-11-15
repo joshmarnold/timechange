@@ -9,3 +9,4 @@ pillow
 h5py
 Flask-JSGlue
 tensorflow
+Flask-JSON

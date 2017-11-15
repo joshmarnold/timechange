@@ -14,6 +14,14 @@ $(document).ready(function(){
 });
 </script>
 
+
+<!-- <script>
+window.onload = function myFunction() {
+  $("#jumbotron").hide();
+    $("#jumbotron").slideDown();
+}
+</script> -->
+
 <style>
 h5 {
   padding: 25px;
@@ -35,6 +43,10 @@ p {
 }
 </style>
 
+
+
+
+
 <!-- Begin Home tab -->
 <div class="container">
 
@@ -51,7 +63,7 @@ p {
 
 
   <div class="container" style="display:flex;justify-content:center;margin-top:40px;">
-    <form id="upload-form" action="{{ url_for('projectInit') }}" method="POST">
+    <form id="upload-form" action="{{ url_for('initProject') }}" method="POST">
       <button class ="btn btn-primary" type="" value="">Submit</button>
     </form>
   </div>
