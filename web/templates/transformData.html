@@ -17,16 +17,12 @@ window.onload = function myFunction() {
 {% endif %}
 
 
-<form id="upload-form" action="{{ url_for('transform_data_timechange') }}" method="POST">
-  <button class ="btn btn-primary" type="" value="">Submit</button>
-</form>
-
 <!-- Begin Transform Data tab -->
 <div class="container">
 
 
 <div id="transformData" class="tab-pane fade in active">
-  <div style="width: 75%; margin: auto">
+  <div style="margin: auto">
     <h3 class="center-align" style="margin-top: 40px;">Instructions</h3>
     <div >
       <div class="container">
@@ -38,10 +34,10 @@ window.onload = function myFunction() {
     </div>
   </div>
 
-  <hr style="border-color: silver; width: 75%;">
+  <hr style="border-color: silver;">
 
   <!-- row: columns to include -->
-  <div class="container" style="width: 75%; margin-top:50px">
+  <div class="" style="margin-top:50px">
 
     <!-- Begin form to submit all data on page -->
     <!-- TODO: Implement WTForms - maybe -->
@@ -51,15 +47,15 @@ window.onload = function myFunction() {
         <div class="col s6">
           <h4 class="text-center">Transform Type</h4>
             <p>
-              <input class="with-gap" name="trans_type" type="radio" id="none" />
+              <input class="with-gap" name="options" type="radio" id="none" value="none" />
               <label for="none">None</label>
             </p>
             <p>
-              <input class="with-gap"name="trans_type" type="radio" id="FFT" />
+              <input class="with-gap"name="options" type="radio" id="FFT" value="fft" />
               <label for="FFT">FFT</label>
             </p>
             <p>
-              <input class="with-gap" name="trans_type" type="radio" id="spectrogram"  />
+              <input class="with-gap" name="options" type="radio" id="spectrogram" value="spectrogram" />
               <label for="spectrogram">Spectrogram</label>
             </p>
         </div>
@@ -78,10 +74,10 @@ window.onload = function myFunction() {
         </div>
       </div>
 
-      <div class="row" style="width: 100%;">
-          <!-- <button type="button" class="btn btn-primary btn-block" style="margin:auto !important; margin-top: 40px !important; color: white !important">Transform Data</button> -->
-          <a class="waves-effect waves-light btn">button</a>
+      <div class="center-align">
+        <button class ="btn btn-primary waves-effect waves-light" type="" value="">Submit</button>
       </div>
+
     </form>
   </div>
 

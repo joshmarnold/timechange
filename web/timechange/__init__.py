@@ -37,7 +37,7 @@ import numpy as np
 import pandas
 from PIL import Image
 import timechange
-from .worker import *
+# from .worker import *
 from .train import *
 from .model import *
 

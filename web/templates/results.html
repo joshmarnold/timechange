@@ -3,7 +3,7 @@
 {% block content %}
 <!-- Import navbar from parent -->
 {% block nav %}{{ super() }}{% endblock %}
-<!-- 
+<!--
 <script>
 window.onload = function myFunction() {
     $("#jumbotron").hide();
@@ -15,7 +15,9 @@ window.onload = function myFunction() {
   <div id="results" class="tab-pane fade in active">
     <h3 class="center-align" style="margin-top: 40px;">Results</h3>
     <div style="display:flex;justify-content:center;">
-      <button type="button" style="width: 15%" class="btn btn-primary ">Train</button>
+      <form id="upload-form" action="{{ url_for('train_timechange') }}" method="POST">
+        <button class ="btn btn-primary" type="" value="">TRAIN</button>
+      </form>
     </div>
   </div>
 </div>

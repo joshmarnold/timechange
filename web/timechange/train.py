@@ -70,11 +70,16 @@ def train(project_path):
     # Train the model
     # TODO: k-fold validation
     try:
-        return model.fit_generator(
+        training_results = model.fit_generator(
             train_generator,
             samples_per_epoch=len(train_generator.filenames),  # TODO: better solution
             nb_epoch=20,
             callbacks=[ProgressBarCallback()]).history  # TODO: customize this
+
+        results_string = ""
+        for metric, result in training_results.items():
+            results_string += "{}: {:.4f}\n".format(metric, result[-1])
+        return results_string
     except Exception as err:
         # TODO: Handle error better
         raise Exception("Something went wrong with the training process: {}".format(str(err)))
