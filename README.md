@@ -12,7 +12,7 @@ The focus with regards to the design of this system during the Fall 2017 Softwar
 1. Converting Timechange into a web app through use of Flask
 2. Addition of the ability to train RNNs 
 
-#### installation
+#### Installation
 1. Clone this project using git
 
 2. install virtualenv
@@ -20,7 +20,7 @@ The focus with regards to the design of this system during the Fall 2017 Softwar
 pip install virtualenv
 ```
 
-#### Usage instructions
+#### Usage Instructions
 
 1. Create and run a virtual environment
 ```
@@ -32,15 +32,19 @@ source my_project/bin/activate
 ```
 
 2. Chang to web directory
+
 ```cd web```
 
 3. Install requirements to run app
+
 ```pip install -r requirements.txt```
 
 4. start server 
+
 ```python manage.py runserver```
 
 5. Enter the following address in your favorite browser
+
 ```localhost:5000```
 
 #### Error: Too Many Open Files
@@ -49,4 +53,4 @@ You'll see this error if you try to upload more files than your system settings 
 
 [Linux users should look here](http://posidev.com/blog/2009/06/04/set-ulimit-parameters-on-ubuntu/)
 
-[unix users should look here](https://blog.dekstroza.io/ulimit-shenanigans-on-osx-el-capitan/)
+[Unix users should look here](https://blog.dekstroza.io/ulimit-shenanigans-on-osx-el-capitan/)
