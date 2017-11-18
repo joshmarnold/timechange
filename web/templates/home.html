@@ -7,68 +7,53 @@
 <!-- Import navbar from parent -->
 {% block nav %}{{ super() }}{% endblock %}
 
-
-<script>
-$(document).ready(function(){
-  $(".fade").hide(0).delay(200).fadeIn(3000)
-});
-</script>
-
-
-<!-- <script>
-window.onload = function myFunction() {
-  $("#jumbotron").hide();
-    $("#jumbotron").slideDown();
-}
-</script> -->
-
 <style>
 h5 {
   padding: 25px;
   font-size: 3em !important;
-    -webkit-margin-before: 0.67em;
-    -webkit-margin-after: 0.67em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    font-weight: bold;
+  -webkit-margin-before: 0.67em;
+  -webkit-margin-after: 0.67em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold;
 }
 
 p {
-    display: block;
-    font-size: 1.1em;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+  display: block;
+  font-size: 1.1em;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
 }
 </style>
+<script>
+$(document).ready(function(){
+  $(".fade").hide(0).delay(200).fadeIn(3000)
 
-
-
-
+  $("#jumbotron").hide();
+  $("#jumbotron").slideDown();
+});
+</script>
 
 <!-- Begin Home tab -->
 <div class="container">
+  <div id="home" class="tab-pane fade in">
+    <!-- <h5 id="title" class="center-align" >Welcome to TimeChange</h5> -->
+    <div style="width: 65%; margin: auto; margin-top: 60px;">
+      <p class="text-justify">Timechange allows users to easily convert timeseries csv formatted
+        data into fourier transform images and classify them using existing
+        machine learning libraries without a deep knowledge of those tools.<br><br>
+        To begin, click on the 'Load Files' tab to load and label your csv files!
+      </p>
+    </div>
 
-
-<div id="home" class="tab-pane fade in">
-  <!-- <h5 id="title" class="center-align" >Welcome to TimeChange</h5> -->
-  <div style="width: 65%; margin: auto; margin-top: 60px;">
-    <p class="text-justify">Timechange allows users to easily convert timeseries csv formatted
-      data into fourier transform images and classify them using existing
-      machine learning libraries without a deep knowledge of those tools.<br><br>
-      To begin, click on the 'Load Files' tab to load and label your csv files!
-    </p>
+    <div class="container" style="display:flex;justify-content:center;margin-top:40px;">
+      <form id="upload-form" action="{{ url_for('initProject') }}" method="POST">
+        <button class ="btn btn-primary" type="" value="">Submit</button>
+      </form>
+    </div>
   </div>
-
-
-  <div class="container" style="display:flex;justify-content:center;margin-top:40px;">
-    <form id="upload-form" action="{{ url_for('initProject') }}" method="POST">
-      <button class ="btn btn-primary" type="" value="">Submit</button>
-    </form>
-  </div>
-</div>
-
 </div>
 
 

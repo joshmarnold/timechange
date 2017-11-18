@@ -74,6 +74,12 @@ def transformData():
 
 @app.route('/FFTPreview')
 def FFTPreview():
+    # Print images
+    #if images folder is empty else
+    # if os.listdir(os.join(PROJECT_PATH, "images")) == []):
+    #     # print each images
+    #     for image in
+
     return render_template("FFTPreview.html")
 
 @app.route('/configure')

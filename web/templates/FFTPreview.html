@@ -4,17 +4,21 @@
 <!-- Import navbar from parent -->
 {% block nav %}{{ super() }}{% endblock %}
 
-<!-- <script>
+<script>
 window.onload = function myFunction() {
     $("#jumbotron").hide();
 }
-</script> -->
+</script>
 
 <!-- Begin FFT Preview tab -->
 <div class="container" style="width: 75%;display:flex;justify-content:center;">
   <div id="FFTPreview" class="tab-pane fade in active" style="margin-top: 40px;">
     <h3 >FFT Preview</h3>
-    <p class="text-center">Some content.</p>
+    {% if images %}
+    {% for image in images: %}
+      <img src="web/default/images/{{ image.profile_image | default('profile.jpg') }}" width="120" height="90" />
+    {% endfor %}
+  {% endif %}
   </div>
 </div>
 
