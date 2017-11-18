@@ -1,4 +1,4 @@
-### Timechange
+# Timechange
 
 #### Description
 
@@ -31,7 +31,7 @@ virtualenv my_project
 source my_project/bin/activate    
 ```
 
-2. Chang to web directory
+2. Change to web directory
 
 ```cd web```
 
