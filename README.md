@@ -49,7 +49,7 @@ source my_project/bin/activate
 
 #### Error: Too Many Open Files
 
-You'll see this error if you try to upload more files than your system settings currently permit. This is not as big of an issue as it may seem at first. You just need to do modify the limit on the 
+You'll see this error if you try to upload more files than your system settings currently permit. This is not as big of an issue as it may seem at first.
 
 [Linux users should look here](http://posidev.com/blog/2009/06/04/set-ulimit-parameters-on-ubuntu/)
 
