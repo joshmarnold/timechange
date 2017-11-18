@@ -101,7 +101,7 @@ $(document).ready(function(){
   });
 });
 </script>
-<!--
+
 {% if slideUp == True %}
 
 <script>
@@ -118,7 +118,7 @@ window.onload = function myFunction() {
     $()
 }
 </script>
-{% endif %} -->
+{% endif %}
 
 
 {% if flag %}
@@ -127,13 +127,10 @@ window.onload = function myFunction() {
 {% endif %}
 
 <!-- Begin Load Files tab -->
-<div style=" height: 100vh !important;">
-
-
+<div>
 <div id="loadFiles" class="tab-pane fade in" >
-  <div class="container"  >
-
-    <div class="row">
+  <div class="container">
+    <div class="row" >
       <div style="margin-left: auto; text-align: center !important;">
         <div id="instructions" style="display: inline-block !important; text-align: left !important">
           <h3 id="" class="center-align w3-animate-fading">Instructions</h3> <!-- TODO: Animate Header -->
@@ -148,10 +145,8 @@ window.onload = function myFunction() {
         </div>
       </div>
 
-
-
       <!-- Table -->
-      <div class="row" style="margin-bottom: 350px;">
+      <div class="row" style="">
 
         <!-- If there are files to render -->
         {% if file_names %}
@@ -160,7 +155,7 @@ window.onload = function myFunction() {
         {{ render_field(file_names) }} <!-- call the macro to the render table -->
         <!-- Else, no files to render -->
 
-        <div style="display: flex; align-items: center; justify-content: center; margin: 25px">
+        <div style="display: flex; align-items: center; justify-content: center;">
           <!-- <a id="hideInstrBtn" class="waves-effect waves-light btn" style="margin: auto !important; color: white !important;">Hide instructions</a> -->
           <a class="btn waves-effect waves-light submitjson" type="submit" name="action" >Submit Labels</a>
         </div>
@@ -182,7 +177,7 @@ window.onload = function myFunction() {
           <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" style="width: 75%; margin: auto !important; margin-top: 40px !important;">
             <input type="file" name="file" accept=".csv" multiple />
             <p>Drag your files here or click in this area.</p>
-            <div style="margin-bottom: 300px; margin-top: 20px;">
+            <div style="margin-top: 20px;">
               <button class="btn" type="submit" value="">Submit</button>
             </div>
           </form>

@@ -22,24 +22,19 @@
 
   <style>
 
-
-
   @import url('https://fonts.googleapis.com/css?family=Roboto');
 
   /* overriding materialize button */
   .btn {
     color: #fff;
-    /*background: #16a085;*/
     background: #173645 !important;
     border: none;
     font-weight: normal;
-
     transition: all .2s ease;
     outline: none;
   }
 
   .btn:hover{
-    /*background: #149174;*/
     background: #516874 !important;
     color: #000;
   }
@@ -73,72 +68,46 @@
     color: #000;
   }
 
-  html {
+  html, body {
     background-color: #f7f7f7;
     color: black;
     font-family: Helvetica, sans-serif;
-        -webkit-font-smoothing: antialiased;
-  }
-
-  body {
+    -webkit-font-smoothing: antialiased;
     color: black !important;
     height: 100vh;
-    /*overflow: hidden;*/
+    
   }
 
-  @media (min-width: 576px) {
-    .container {
-      max-width: 540px;
-    }
+  .jumbotron {
+    width: 100% !important;
+    background-color: #173645 !important;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 1.3em;
+    font-weight: lighter;
+    height: 200px;
   }
 
-  @media (min-width: 768px) {
-    .container {
-      max-width: 720px;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .container {
-      max-width: 960px;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .container {
-      max-width: 1140px;
-    }
-  }
   </style>
-
-  <!-- <script>
-  $(document).ready(function(){
-      $("#loadFiles").click(function(){
-          {state: $("#jumbotron").hide();
-      });
-  });
-  </script> -->
-
   <script>
   $(document).ready(function(){
-    $(".fade").hide(0).delay(100).fadeIn(3000)
+    $(".fade").hide(0).delay(100).fadeIn(3000);
   });
   </script>
-
-
 </head>
+
+
 <body>
-  <div class="container z-depth-2" style="height: 100%;">
-
-
-  <div id="jumbotron" style="width: 100% !important; height: 25%; background-color: #173645 !important; display: flex; align-items: center; color: white; font-size: 1.3em; font-weight: lighter;">
-    <div class="container">
-      <h2 class="center-align">TimeChange</h2>
+  <div class="container z-depth-2" style="height: 100vh">
+    <div id="jumbotron" class="jumbotron">
+      <div class="container">
+        <h2 class="center-align">TimeChange</h2>
+      </div>
     </div>
+
+
+    {% block content %}{% endblock %}
   </div>
-
-
-  {% block content %}{% endblock %}
-</div>
 </body>
 </html>

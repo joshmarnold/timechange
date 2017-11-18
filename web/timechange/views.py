@@ -62,9 +62,8 @@ def train_timechange():
     print("IN Train")
 
     ret = train(PROJECT_PATH)
-    print(ret)
 
-    return (''), 204
+    return render_template("results.html", ret=ret)
 
 
 
