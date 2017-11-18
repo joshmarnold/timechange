@@ -21,8 +21,6 @@ def create_default_dir():
     os.mkdir(PROJECT_PATH)
     # under default create csv dir
     os.mkdir(os.path.join(PROJECT_PATH, 'csv/'))
-    # under csv create labels dir
-    os.mkdir(os.path.join(PROJECT_PATH, 'csv/labels/'))
     # under default create images dir
     os.mkdir(os.path.join(PROJECT_PATH, 'images/'))
     # under default create models dir
@@ -32,21 +30,21 @@ def remove_default_dir():
     shutil.rmtree(PROJECT_PATH)
 
 def remove_and_create_labels_dir():
-    shutil.rmtree(os.path.join(PROJECT_PATH, 'csv/labels/'))
-    os.mkdir(os.path.join(PROJECT_PATH, 'csv/labels/'))
+    shutil.rmtree(os.path.join(PROJECT_PATH, 'csv/'))
+    os.mkdir(os.path.join(PROJECT_PATH, 'csv/'))
 
 def create_directory(post_data):
     # for each labels
     for index in range(len(post_data)):
         #if label-name folder exists in label folder
-        if os.path.isdir(os.path.join(PROJECT_PATH, 'csv/labels/' + post_data[index]['label'])):
+        if os.path.isdir(os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['label'])):
             # move file from csv folder to label-name folder
-            shutil.move(os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['file_name']), os.path.join(PROJECT_PATH, 'csv/labels/' + post_data[index]['label']))
+            shutil.move(os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['file_name']), os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['label']))
         else:
             # create label-name folder in label folder
-            os.mkdir(os.path.join(PROJECT_PATH, 'csv/labels/' + post_data[index]['label']))
+            os.mkdir(os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['label']))
             # move file in csv folder to new label-name folder
-            shutil.move(os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['file_name']), os.path.join(PROJECT_PATH, 'csv/labels/' + post_data[index]['label']))
+            shutil.move(os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['file_name']), os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['label']))
 
 @app.route('/')
 @app.route('/home')

@@ -10,3 +10,4 @@ h5py
 Flask-JSGlue
 tensorflow
 Flask-JSON
+flask_restful
