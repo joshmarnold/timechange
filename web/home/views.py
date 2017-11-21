@@ -178,6 +178,6 @@ def getjson():
     try:
         create_directory(post_data)
     except:
-        return render_template('loadFiles.html', file_names=file_names, flag='fail', message="Ran into a problem adding the labels in to the project")
+        return render_template('loadFiles.html', file_names=file_names, flag='fail', message="There was a problem adding the labels to the project")
 
-    return render_template('loadFiles.html', file_names=file_names, flag='success', message="Success adding labels")
+    return render_template('upload.html', file_names=file_names, flag='success', message="Success adding labels")
