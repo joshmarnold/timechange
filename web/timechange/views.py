@@ -85,7 +85,7 @@ def train_timechange():
     project_path -- path to a timechange project
     config -- dict containing configuration setting (model_type, num_block, num_filters, learning_rate)
     """
-
+    ret = ''
     try:
         ret = train(PROJECT_PATH)
     except:

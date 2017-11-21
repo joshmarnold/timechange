@@ -3,8 +3,8 @@
 {% block content %}
 <!-- Import navbar from parent -->
 {% block nav %}{{ super() }}{% endblock %}
-<!--
-<script>
+
+<!-- <script>
 window.onload = function myFunction() {
     $("#jumbotron").hide();
 }
@@ -24,8 +24,10 @@ window.onload = function myFunction() {
         <button class ="btn btn-primary" type="" value="">TRAIN</button>
       </form>
     </div>
-    <div>
-      {{ ret }}
+    <div style="margin: auto; margin-top: 50px;">
+      {% if ret is defined %}
+        <h4 class="center-align">{{ ret }}</h4>
+      {% endif %}
     </div>
   </div>
 </div>

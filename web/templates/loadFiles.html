@@ -81,6 +81,11 @@ form button:active{
 
 <script>
 
+// window.onload = function myFunction() {
+//     $("#jumbotron").hide();
+//     $()
+// }
+
 $(document).ready(function(){
   $('#hideInstrBtn').click(function(){
     console.log("HELO")
@@ -101,24 +106,6 @@ $(document).ready(function(){
   });
 });
 </script>
-
-{% if slideUp == True %}
-
-<script>
-window.onload = function myFunction() {
-    $("#jumbotron").slideUp();
-    $()
-}
-</script>
-{% else %}
-
-<script>
-window.onload = function myFunction() {
-    $("#jumbotron").hide();
-    $()
-}
-</script>
-{% endif %}
 
 
 {% if flag %}

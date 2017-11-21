@@ -45,7 +45,6 @@ def remove_label_dirs():
 def create_directory(post_data):
     # remove existing label folders to add new set
     for index in range(len(post_data)):
-        print(post_data[index]['label'])
         if os.path.isdir(os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['label'])):
             shutil.rmtree(os.path.join(PROJECT_PATH, 'csv/' + post_data[index]['label']))
 
@@ -132,9 +131,8 @@ def FFTPreview():
             dirs.append(i[0])
         image_names.append(i[1])
 
-    # for i in image_names:
-    #     print(i)
-    # return (''), 204
+    if len(image_names) == 0:
+        return (''), 204
     return render_template("FFTPreview.html", image_names=image_names, dirs=dirs)
 
 @app.route('/configure')
