@@ -152,6 +152,8 @@ def page_not_found(error):
 # TODO: ability to upload a set of files more than once
 @app.route('/upload', methods=['POST'])
 def upload():
+    remove_default_dir();
+    create_default_dir();
     file_names = []
     target = path.join(PROJECT_PATH, "files/")
 
