@@ -11,3 +11,4 @@ Flask-JSGlue
 tensorflow
 Flask-JSON
 flask_restful
+flask-cache
