@@ -63,7 +63,6 @@ def upload():
     # mk a new directory
     os.mkdir(target)
 
-    #print("here")
     #input_files from html form and save locally
     for file in request.files.getlist("file"):
         # if an empty form, return
@@ -74,14 +73,12 @@ def upload():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         file.close()
 
-    #print("Here")
     return render_template('loadFiles.html', file_names=file_names, message="Success!", flag="success")
 
 
 @app.route('/grabjson', methods=['POST'])
 def grabjson():
 
-    print('hello')
 
     # converts the JSON object into Python recognizable data
     req_data = request.get_json()
@@ -92,13 +89,10 @@ def grabjson():
         print(row)
 
 
-    return 'helllllo'
+    return ''
 
 
 @app.route('/alerts', methods=['POST'])
 def alerts():
 
-    print("HERE IN")
-
-
-    return 'helllllo'
+    return ''
